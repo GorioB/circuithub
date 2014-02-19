@@ -1,0 +1,10 @@
+{% extends "login/index_base_wdesign.html" %}
+
+{% block title %}Welcome, {{ username }}!{% endblock %}
+
+{% block loggedin %}Welcome, {{ username }}! 
+	<form action="/logout/" method="post">
+		{% csrf_token %}
+		<input type="submit" value = "Logout" class="button" id="login">
+	</form>
+{% endblock %}

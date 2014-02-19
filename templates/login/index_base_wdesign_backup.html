@@ -1,0 +1,48 @@
+
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}"/>
+</head>
+<body>
+	<div id="box">
+		<div id="imglogo">
+			<img src="{% static "img/circuithublogo1.png" %}">
+		</div>
+		<br>
+		<div id="thename">
+			<strong>circuit</strong><notstrong>hub</notstrong>
+		</div>
+		<br>
+		<div id="formz">
+		<form action="/login/" method='post'>
+	<input type="text" name="username" class="usr_pw">
+	<input type="password" name="passwd" class="usr_pw">
+	<input type="submit" value="Login" class="button" id="login">
+		</form>
+			<form action="/register/" method='post' id="regform">
+				<input type="submit" value="Register" class="button" id="register">
+			</form>
+			<form class='dragon' id="morebuttons">
+				<input type="submit" value = "Browse" class="button coolbuttons">						<input type="submit" value = "Manual Input" class="button coolbuttons">
+			</form>
+		</div>
+	</div>	
+
+
+
+<!---------
+	<center>
+	{% block loggedin %}{% endblock %}<form><input type="submit" value = "Browse"><input type="submit" value = "Manual Input"></form>
+	</center>
+-------->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+ 	<script src="{% static "js/jquery.fittext.js" %}"></script>
+	<script type="text/javascript">
+		$("#thename").fitText(.7);
+	</script>
+
+</body>
+</html>

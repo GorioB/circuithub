@@ -1,0 +1,2 @@
+{% extends 'login/register.html' %}
+{% block failure %}{% for issue in issues %}{{ issue }}<br>{% endfor %}{% endblock %}

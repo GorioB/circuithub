@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>Registration</title>
+</head>
+<body>
+	<form action="/register_submit/" method='post'>
+		{% csrf_token %}
+		Name: <input type="text" name="username"><br>
+		Email: <input type="text" name="email"><br>
+		Password: <input type="password" name="password"<br>
+		Confirm Password: <input type="password" name="passwordconfirm"><br>
+		<input type="submit" value="Submit">
+	</form>
+	{% block failure %}{% endblock %}
+</body>
+</html>
