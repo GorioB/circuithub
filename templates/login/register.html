@@ -1,16 +1,25 @@
-<html>
-<head>
-	<title>Registration</title>
-</head>
-<body>
-	<form action="/register_submit/" method='post'>
-		{% csrf_token %}
-		Name: <input type="text" name="username"><br>
-		Email: <input type="text" name="email"><br>
-		Password: <input type="password" name="password"<br>
-		Confirm Password: <input type="password" name="passwordconfirm"><br>
-		<input type="submit" value="Submit">
-	</form>
+{% extends "login/navbar.html" %}
+
+{% block title %}{% endblock %}
+
+
+{% block contents %}
+
+	<div id="box">
+		<div id="registrationform">
+			<form action="/register_submit/" method='post'>
+				{% csrf_token %}
+				Name: <input type="text" name="username"><br>
+				Email: <input type="text" name="email"><br>
+				Password: <input type="password" name="password"> <br>
+				Confirm Password: <input type="password" name="passwordconfirm"><br><br>
+				<input type="submit" value="Submit" class="functions yehey">
+			</form>
+		</div>
+	</div>
 	{% block failure %}{% endblock %}
+
 </body>
 </html>
+
+{% endblock %}

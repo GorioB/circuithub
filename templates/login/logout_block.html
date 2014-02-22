@@ -5,6 +5,6 @@
 {% block loggedin %}Welcome, {{ username }}! 
 	<form action="/logout/" method="post">
 		{% csrf_token %}
-		<input type="submit" value = "Logout" class="button" id="login">
+		<input type="submit" value = "Logout" class="functipns" id="login">
 	</form>
 {% endblock %}

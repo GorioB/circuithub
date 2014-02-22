@@ -1,13 +1,14 @@
 {% extends "login/index_base_wdesign.html" %}
 
 {% block title %}Welcome! {% endblock %}
-{% block loggedin %}<form action="/login/" method='post'>{% csrf_token %}
-	<input type="text" name="username" class="usr_pw">
-	<input type="password" name="passwd" class="usr_pw">
-	<input type="submit" value="Login" class="button" id="login">
-		</form>
+{% block loggedin %}
+	<form action="/login/" method='post'>{% csrf_token %}
+			<input type="text" name="username" class="usr_pw">
+			<input type="password" name="passwd" class="usr_pw">
+			<input type="submit" value="Login" class="functions" id="login">
+	</form>
 	<form action="/register/" method='post' id="regform">{% csrf_token%}
-				<input type="submit" value="Register" class="button" id="register">
-			</form>
+				<input type="submit" value="Register" class="functions" id="register">
+	</form>
 
 {% endblock %}
