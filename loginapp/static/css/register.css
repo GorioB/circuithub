@@ -1,0 +1,57 @@
+#registrationform input{
+	font-family: inherit;
+	font-size: 1.2em;
+	padding: 5px;
+	width: 100%;
+}
+#registrationform{
+	font-weight: 700;
+}
+
+.yehey{
+	text-transform: uppercase;
+	border: 3px solid #B31515;
+	font-family: inherit;
+	font-size: 20px;
+	color: #B31515;
+	background: none;
+	cursor: pointer;
+	padding: 5px 20px;
+	display: inline-block;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	margin-left: 0px;
+}
+
+.yehey:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.yehey:after {
+	width: 0%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #f7f7f7;
+}
+
+.yehey:hover,
+.yehey:active {
+	color: #f0f0f0;
+	background: #B31515;
+	border: 3px solid #B31515;
+}
+
+.yehey:hover:after,
+.yehey:active:after {
+	width: 100%;
+}

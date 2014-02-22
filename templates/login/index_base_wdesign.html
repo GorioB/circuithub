@@ -1,34 +1,18 @@
-{% load staticfiles %}
-<html>
-<head>
-	<title>{% block title %}{% endblock %}</title>
-	<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" />
-</head>
-<body>
+{% extends "login/navbar.html" %}
+
+{% block title %}{% endblock %}
+
+
+{% block contents %}
+
 	<div id="box">
-		<div id="imglogo">
-			<img src="{% static "img/circuithublogo1.png" %}">
-		</div>
-		<br>
-		<div id="thename">
-			<strong>circuit</strong><notstrong>hub</notstrong>
-		</div>
-		<br>
 		<div id="formz">
-		{% block loggedin %}{% endblock %}
-			<form class='dragon' id="morebuttons">
-				<input type="submit" value = "Browse" class="button coolbuttons">						<input type="submit" value = "Manual Input" class="button coolbuttons">
-			</form>
+			{% block loggedin %}{% endblock %}
 		</div>
 	</div>	
 
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
- 	<script src="{% static "js/jquery.fittext.js" %}"></script>
-	<script type="text/javascript">
-		$("#thename").fitText(.7);
-	</script>
-
 </body>
 </html>
+{% endblock %}

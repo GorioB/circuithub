@@ -3,9 +3,10 @@ html, body{
 	background: #F7F7F7;
 }
 
-body {
 
-display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+#box{
+
+	display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
    display: -moz-box;      /* OLD: Firefox (buggy) */ 
    display: -ms-flexbox;   /* MID: IE 10 */
    display: -webkit-flex;  /* NEW, Chrome 21–28, Safari 6.1+ */
@@ -28,16 +29,12 @@ display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit brow
 	display: flex;
    justify-content: center;
    align-items: center;
-} 
-
-#box{
-	width: 40%;
 }
-
 #formz{
 	position: relative;
 	clear: left;
 	text-align: center;
+	padding-top: 100px;
 
 }
 
@@ -79,6 +76,7 @@ notstrong{
 	padding: 5px;
 	width: 100%;
 	margin-top: 10px;
+	border: 1px solid rgba(69,69,69,0.8);
 }
 
 .usr_pw:focus{
@@ -105,47 +103,68 @@ notstrong{
 
 }
 
-#login{
-	background: #0a0a0a;
-	color: white;
-	margin-top: 10px;
-	float: left;
-	margin-left: 30%;
-	width: 200px;
-}
-
-#login:hover{
-	background: #9e9e9e;
-}
-
 #register{
-	margin-top: 50px;
-	background: #5E5E5E;
+	font-size: 1em;
+	background: #707070;
 	color: white;
-	position: absolute;
-	right: 0;
 }
 
 #register:hover{
-	background: #9e9e9e;
-}
-
-#morebuttons{
-	margin: 40px 0px 0 0;
+	background: #1f1f1f;
 }
 
 .dragon{
 	padding: 10px 0 0 0px;
 	position: absolute;
+
+}
+
+
+
+#login{
+	text-transform: uppercase;
+	border: 3px solid #B31515;
+	font-family: inherit;
+	font-size: 20px;
+	color: #B31515;
+	background: none;
+	cursor: pointer;
+	padding: 5px 20px;
+	display: inline-block;
+	margin: 15px 10px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+#login:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+#login:after {
+	width: 0%;
+	height: 100%;
+	top: 0;
 	left: 0;
-
+	background: #f7f7f7;
 }
 
-.coolbuttons{
-	background: #1A1A1A;
-	color: #f7f7f7;
+#login:hover,
+#login:active {
+	color: #f0f0f0;
+	background: #B31515;
+	border: 3px solid #B31515;
 }
 
-.coolbuttons:hover{
-	background: #9e9e9e;
+#login:hover:after,
+#login:active:after {
+	width: 100%;
 }
