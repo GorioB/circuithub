@@ -1,0 +1,19 @@
+<html>
+<body>
+listTemplate
+{% if listlist %}
+	<ul>
+	{% for rawlist in listlist %}
+		<li><a href = {% url 'circuits.views.listRawContents' rawlist.owner rawlist.name %}>{{ rawlist.name }}</a></li>
+		{% if rawlist.circuitlist_set.all %}
+		<ul>
+			{% for circuitlist in rawlist.circuitlist_set.all %}
+			<li>{{ circuitlist.name }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	{% endfor %}
+	</ul>
+{% endif %}
+</body>
+</html>
