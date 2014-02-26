@@ -27,7 +27,7 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 	circuitList = rawList.circuitlist_set.get(name=circuit_name)
 	contents = circuitList.realelement_set.all()
 	context = RequestContext(request,{'contents':contents})
-	return render(request,'circuits/contentsTemplate.html',context)
+	return render(request,'circuits/checklistTemplate.html',context)
 
 def createChecklist(request,owner_id,list_id):
 	user = request.user.username
@@ -36,4 +36,17 @@ def createChecklist(request,owner_id,list_id):
 	rawList.generateCircuitList(circuit_name)
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
+def updateChecklist(request,owner_id,list_id,circuit_name):
+	user = request.user.username
+	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	contents = circuitList.realelement_set.all()
+
+	for i in contents:
+		if i.bought_count != int(request.POST[str(i.pk)]):
+			element = circuitList.realelement_set.get(pk=i.pk)
+			element.bought_count=int(request.POST[str(i.pk)])
+			element.save()
+
+	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
 # Create your views here.

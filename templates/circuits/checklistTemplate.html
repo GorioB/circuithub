@@ -1,0 +1,15 @@
+<html>
+<body>
+checklistTemplate
+{% if contents %}
+<form action='update/' method='post'>{% csrf_token %}
+	<ul>
+	{% for item in contents %}
+		<li>{{ item.device_type }} : {{ item.main_value }} - <input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}'>/{{ item.device_count }}</li>
+	{% endfor %}
+	</ul>
+	<input type="submit" value="Update checklist">
+</form>
+{% endif %}
+</body>
+</html>
