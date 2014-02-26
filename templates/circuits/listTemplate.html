@@ -4,7 +4,13 @@ listTemplate
 {% if listlist %}
 	<ul>
 	{% for rawlist in listlist %}
-		<li><a href = {% url 'circuits.views.listRawContents' rawlist.owner rawlist.name %}>{{ rawlist.name }}</a></li>
+		<li>
+			<a href = {% url 'circuits.views.listRawContents' rawlist.owner rawlist.name %}>{{ rawlist.name }}</a>
+			<form action='{{ rawlist.name }}/checkout/' method = 'post'>{% csrf_token %}
+				<input type='text' name='circuit_name'>
+				<input type='submit' value='Create Checklist'>
+			</form>
+			</li>
 		{% if rawlist.circuitlist_set.all %}
 		<ul>
 			{% for circuitlist in rawlist.circuitlist_set.all %}

@@ -4,23 +4,36 @@ from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from circuits.models import RawList
+from circuits.models import RawList, CircuitList
 
 
 def listRawLists(request,owner_id):
-	listsowner = request.user.username
+	listowner = request.user.username
 	ownersLists = RawList.objects.filter(owner=owner_id)
 	context = RequestContext(request,{'listlist':ownersLists})
 	return render(request,'circuits/listTemplate.html',context)
 
 
 def listRawContents(request,owner_id,list_id):
-	listsowner= request.user.username
+	listowner= request.user.username
 	ownersLists=RawList.objects.get(owner=owner_id,name=list_id)
 	contents = ownersLists.rawelement_set.all()
 	context = RequestContext(request,{'contents':contents})
 	return render(request,'circuits/contentsTemplate.html',context)
 
+def listCircuitContents(request,owner_id,list_id,circuit_name):
+	listowner = request.user.username
+	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	contents = circuitList.realelement_set.all()
+	context = RequestContext(request,{'contents':contents})
+	return render(request,'circuits/contentsTemplate.html',context)
 
+def createChecklist(request,owner_id,list_id):
+	user = request.user.username
+	circuit_name = request.POST['circuit_name']
+	rawList = RawList.objects.get(owner=user,name=list_id)
+	rawList.generateCircuitList(circuit_name)
+	return redirect('circuits.views.listRawLists',owner_id=user)
 
 # Create your views here.

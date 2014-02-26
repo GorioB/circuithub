@@ -8,6 +8,19 @@ class RawList(models.Model):
 	def __unicode__(self):
 		return self.owner+" "+self.name
 
+	def generateCircuitList(self,name):
+		c = self.circuitlist_set.create(owner=self.owner,name=name)
+		for i in self.rawelement_set.all():
+			c.realelement_set.create(
+				main_value=i.main_value,
+				device_type=i.device_type,
+				device_subtype=i.device_subtype,
+				device_model=i.device_model,
+				device_count=i.device_count,
+				bought_count=0)
+		return c
+
+#CircuitList owner field is for removal
 class CircuitList(models.Model):
 	owner=models.CharField(max_length=20)
 	name=models.CharField(max_length=20)

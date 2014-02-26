@@ -10,3 +10,4 @@ class RawListAdmin(admin.ModelAdmin):
 	inlines = [RawElementInline]
 
 admin.site.register(RawList,RawListAdmin)
+admin.site.register(CircuitList)
