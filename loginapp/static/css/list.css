@@ -1,0 +1,50 @@
+#listTemplate{
+	margin: 0 auto;
+	width: 90%;
+	min-height: 100%;
+	padding: 130px 10px 10px 10px;
+}
+
+a.listlink{
+	color: #0d0d0d;
+}
+
+.x{
+	font-size: 8px;
+	padding: 1px 3px 2px 3px;
+	background: #825151;
+	color: #f7f7f7;
+}
+
+.x:hover{
+	background: red;
+}
+
+.ultimateList{
+	list-style: none;
+	background: #f1f1f1;
+	padding: 20px;
+	border-top: 1px solid #c9c9c9;
+	border-bottom: 1px solid #C9c9c9;
+	margin-bottom: 20px;
+}
+
+.ultimateList:hover{
+	background: #eee;
+}
+
+a.listname{
+	font-weight: 400;
+	font-size: 40px;
+	letter-spacing: -.05em;
+}
+
+.checklist{
+	padding: 10px 0 10px 10px;
+	border-top: 1px solid #c9c9c9;
+	list-style: none;
+}
+
+.checklist:hover{
+	background: #e0e0e0;
+}
