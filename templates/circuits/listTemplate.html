@@ -5,7 +5,7 @@ listTemplate
 	<ul>
 	{% for rawlist in listlist %}
 		<li>
-			<a href = {% url 'circuits.views.listRawContents' rawlist.owner rawlist.name %}>{{ rawlist.name }}</a>
+			<a href = {% url 'circuits.views.listRawContents' rawlist.owner rawlist.name %}>{{ rawlist.name }}</a>&nbsp;<a href = {% url 'circuits.views.deleteRawList' rawlist.owner rawlist.name %}>x</a>
 			<form action='{{ rawlist.name }}/checkout/' method = 'post'>{% csrf_token %}
 				<input type='text' name='circuit_name'>
 				<input type='submit' value='Create Checklist'>
@@ -14,7 +14,7 @@ listTemplate
 		{% if rawlist.circuitlist_set.all %}
 		<ul>
 			{% for circuitlist in rawlist.circuitlist_set.all %}
-			<li>{{ circuitlist.name }}</li>
+			<li><a href = {% url 'circuits.views.listCircuitContents' circuitlist.owner rawlist.name circuitlist.name %}>{{ circuitlist.name }}</a>&nbsp;<a href = {% url 'circuits.views.deleteCheckList' circuitlist.owner rawlist.name circuitlist.name %}>x</a></li>
 			{% endfor %}
 		</ul>
 		{% endif %}

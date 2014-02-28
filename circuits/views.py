@@ -47,6 +47,19 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 			element = circuitList.realelement_set.get(pk=i.pk)
 			element.bought_count=int(request.POST[str(i.pk)])
 			element.save()
-
 	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
+
+def deleteRawList(request,owner_id,list_id):
+	user=request.user.username
+	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	rawList.delete()
+	return redirect('circuits.views.listRawLists',owner_id=user)
+
+def deleteCheckList(request,owner_id,list_id,circuit_name):
+	user = request.user.username
+	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	circuitList.delete()
+	return redirect('circuits.views.listRawLists',owner_id=user)
+
 # Create your views here.
