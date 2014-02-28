@@ -17,7 +17,7 @@ class RawList(models.Model):
 				device_subtype=i.device_subtype,
 				device_model=i.device_model,
 				device_count=i.device_count,
-				bought_count=0)
+				bought_count=0,price="3")
 		return c
 
 #CircuitList owner field is for removal
@@ -42,6 +42,7 @@ class RealElement(models.Model):
 	circuitlist = models.ForeignKey(CircuitList)
 	device_count = models.IntegerField()
 	bought_count = models.IntegerField()
+	price = models.CharField(max_length=20)
 
 	def __unicode__(self):
 		return self.device_type+" "+self.main_value
