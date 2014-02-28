@@ -1,21 +1,26 @@
 {% load staticfiles %}
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<title>{% block title %}{% endblock %}</title>
 	<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" /> 
 	<link rel="stylesheet" type="text/css" href="{% static "css/navbar.css" %}" />
-	<link rel="stylesheet" type="text/css" href="{% static "css/register.css" %}" />	
+	<link rel="stylesheet" type="text/css" href="{% static "css/register.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/list.css" %}" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>	
+	<script src="{% static "js/labels.js" %}"></script>	
 </head>
 	<body>
 		<div id="navbar">
 		<div id="logoland">
 			<div id="logoimg"></div>
-			<div id="logotype"><a href="HOMELINKSJFKLSDJFSDLJFS"><strong>circuit</strong><notstrong>hub</notstrong></a></div>
+			<div id="logotype"><a href={% url 'loginapp.views.index_view' %}><strong>circuit</strong><notstrong>hub</notstrong></a></div>
 		</div>
 		<div id="buttonland">
 			<button id="browse" class="functions btn-1c">browse</button>
-			<button id="manual" class="functions btn-1c">manual input</button>
+			<button id="manual" class="functions btn-1c">input</button>
 		</div>
 	</div>
 	{% block contents %}{% endblock %}

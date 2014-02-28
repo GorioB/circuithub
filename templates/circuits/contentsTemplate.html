@@ -1,0 +1,12 @@
+<html>
+<body>
+ContentsTemplate
+{% if contents %}
+	<ul>
+	{% for item in contents %}
+		<li>{{ item.device_type }} : {{ item.main_value }} - {{ item.device_count }}x</li>
+	{% endfor %}
+	</ul>
+{% endif %}
+</body>
+</html>

@@ -168,3 +168,18 @@ notstrong{
 #login:active:after {
 	width: 100%;
 }
+
+.text-label {
+	color: pink;
+	font-weight: bold;
+}
+
+#placeholder{
+	color: #777;
+	font-weight: 300;
+}
+
+#placeholder2{
+	color: #777;
+	font-weight: 300;
+}

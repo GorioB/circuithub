@@ -1,0 +1,77 @@
+#listTemplate{
+	margin: 0 auto;
+	width: 90%;
+	min-height: 100%;
+	padding: 130px 10px 10px 10px;
+}
+
+a.listlink{
+	color: #0d0d0d;
+}
+
+.x{
+	font-size: 25px;
+	color: #333;
+	border: 0;
+	background: rgba(255,255,255,0);
+	font-family: 'FontAwesome';
+}
+
+.x:hover{
+	background: #333;
+	color: #e7e7e7;
+	cursor: pointer;
+}
+
+.ultimateList{
+	list-style: none;
+	background: #f1f1f1;
+	padding: 20px;
+	border-top: 1px solid #c9c9c9;
+	border-bottom: 1px solid #C9c9c9;
+	margin-bottom: 20px;
+	float: left;
+	width: 95%;
+}
+
+.ultimateList:hover{
+	background: #e7e7e7;
+}
+
+a.listname{
+	font-weight: 400;
+	font-size: 40px;
+	letter-spacing: -.05em;
+	float: left;
+}
+
+a.listname:hover{
+	color: #aaa;
+}
+
+.checklist{
+	padding: 10px 0 10px 10px;
+	border-top: 1px solid #c9c9c9;
+	list-style: none;
+	float: left;
+	width: 99%;
+}
+
+.checklist:hover{
+	background: #d7d7d7;
+}
+
+.checklist form	{
+	margin: 0 auto;
+}
+
+.cktname{
+	width: 95%;
+	float: left;
+	line-height: 30px;
+}
+
+.coolx{
+	margin-left: 10px;
+	font-size: 15px;
+}
