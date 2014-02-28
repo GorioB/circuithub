@@ -5,7 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from circuits.models import RawList, CircuitList
-
+import names
 
 def listRawLists(request,owner_id):
 	listowner = request.user.username
@@ -33,7 +33,11 @@ def createChecklist(request,owner_id,list_id):
 	user = request.user.username
 	circuit_name = request.POST['circuit_name'].replace(' ','_')
 	rawList = RawList.objects.get(owner=user,name=list_id)
-	rawList.generateCircuitList(circuit_name)
+	if(circuit_name!=''):
+		rawList.generateCircuitList(circuit_name)
+	else:
+		rawList.generateCircuitList(names.giveName())
+
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
 def updateChecklist(request,owner_id,list_id,circuit_name):
