@@ -128,9 +128,9 @@ def schParts(filename):
 			kind = "RLC"
 			subtype = plist[i]["deviceset"][0]
 			model = ""
-			if plist[i]["deviceset"][0].encode('ascii','ignore').lowercase()=='r': model="Resistor"
-			elif plist[i]["deviceset"][0].encode('ascii','ignore').lowercase()=='c': model="Capacitor"
-			elif plist[i]["deviceset"][0].encode('ascii','ignore').lowercase()=='l': model="Inductor"
+			if plist[i]["deviceset"][0].encode('ascii','ignore').lower()=='r': model="Resistor"
+			elif plist[i]["deviceset"][0].encode('ascii','ignore').lower()=='c': model="Capacitor"
+			elif plist[i]["deviceset"][0].encode('ascii','ignore').lower()=='l': model="Inductor"
 			append = True
 		elif (plist[i]["library"] == "transistor"): #transistor parser
 			name = plist[i]["name"]
