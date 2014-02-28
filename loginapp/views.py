@@ -25,7 +25,7 @@ def login_view(request):
 	if user is not None:
 		if user.is_active:
 			login(request,user)
-			return HttpResponseRedirect("/u/"+username)
+			return HttpResponseRedirect("/u/"+username[:20])
 		else:
 			return HttpResponseRedirect("/")
 	else:
