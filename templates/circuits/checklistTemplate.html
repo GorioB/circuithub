@@ -5,9 +5,13 @@ checklistTemplate
 <form action='update/' method='post'>{% csrf_token %}
 	<ul>
 	{% for item in contents %}
-		<li>{{ item.device_type }} : {{ item.main_value }} - <input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}'>/{{ item.device_count }}</li>
+		<li>{{ item.device_model }} : {{ item.main_value }} - <input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}'>/{{ item.device_count }} 
+		<input type='text' value='{{ item.price }}' name='{{ item.pk }}_price'> Php</li>
 	{% endfor %}
 	</ul>
+	{% if cost %}
+	P{{ cost }} total.
+	{% endif %}
 	<input type="submit" value="Update checklist">
 </form>
 {% endif %}

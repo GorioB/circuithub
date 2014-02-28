@@ -26,7 +26,10 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 	rawList = RawList.objects.get(owner=owner_id,name=list_id)
 	circuitList = rawList.circuitlist_set.get(name=circuit_name)
 	contents = circuitList.realelement_set.all()
-	context = RequestContext(request,{'contents':contents})
+	totalCost=0
+	for i in contents:
+		totalCost+=int(i.price)*i.device_count
+	context = RequestContext(request,{'contents':contents,'cost':totalCost})
 	return render(request,'circuits/checklistTemplate.html',context)
 
 def createChecklist(request,owner_id,list_id):
@@ -50,6 +53,10 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 		if i.bought_count != int(request.POST[str(i.pk)]):
 			element = circuitList.realelement_set.get(pk=i.pk)
 			element.bought_count=int(request.POST[str(i.pk)])
+			element.save()
+		if i.price != int(request.POST[str(i.pk)+"_price"]):
+			element = circuitList.realelement_set.get(pk=i.pk)
+			element.price=int(request.POST[str(i.pk)+"_price"])
 			element.save()
 	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
 
