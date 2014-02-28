@@ -1,4 +1,5 @@
 from django.db import models
+from upload.SchParser import findPrice
 
 # Create your models here.
 class RawList(models.Model):
@@ -17,7 +18,7 @@ class RawList(models.Model):
 				device_subtype=i.device_subtype,
 				device_model=i.device_model,
 				device_count=i.device_count,
-				bought_count=0,price="3")
+				bought_count=0,price=str(findPrice(i.device_model,'pricelist.csv')))
 		return c
 
 #CircuitList owner field is for removal
