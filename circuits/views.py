@@ -13,6 +13,17 @@ def listRawLists(request,owner_id):
 	context = RequestContext(request,{'listlist':ownersLists})
 	return render(request,'circuits/listTemplate.html',context)
 
+def printFriendly(request,owner_id,list_id,circuit_name):
+	listowner = request.user.username
+	rawList = RawList.objects.get(owner=listowner,name=list_id)
+	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	contents = circuitList.realelement_set.all()
+	totalCost=0
+	for i in contents:
+		totalCost+=int(i.price)*i.device_count
+
+	context = RequestContext(request,{'clist':circuitList})
+	return render(request,'circuits/printTemplate.html',context)
 
 def listRawContents(request,owner_id,list_id):
 	listowner= request.user.username
@@ -20,7 +31,7 @@ def listRawContents(request,owner_id,list_id):
 	contents = ownersLists.rawelement_set.all()
 	context = RequestContext(request,{'contents':contents})
 	return render(request,'circuits/contentsTemplate.html',context)
-
+	
 def listCircuitContents(request,owner_id,list_id,circuit_name):
 	listowner = request.user.username
 	rawList = RawList.objects.get(owner=owner_id,name=list_id)
