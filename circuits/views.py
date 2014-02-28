@@ -31,7 +31,7 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 
 def createChecklist(request,owner_id,list_id):
 	user = request.user.username
-	circuit_name = request.POST['circuit_name']
+	circuit_name = request.POST['circuit_name'].replace(' ','_')
 	rawList = RawList.objects.get(owner=user,name=list_id)
 	rawList.generateCircuitList(circuit_name)
 	return redirect('circuits.views.listRawLists',owner_id=user)
