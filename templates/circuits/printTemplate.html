@@ -1,0 +1,13 @@
+<html>
+<head></head>
+<body>
+<img src="{{STATIC_URL}}img/circuithub1.png" height='205' width='256'/><hr>
+	{% if clist %}
+		<strong>{{ clist.name }}</strong><br><br>
+		<form>
+			{% for element in clist.realelement_set.all %}
+			<input type="checkbox" name="" value = "">{{ element.main_value }} {{ element.device_model }} -- {{ element.device_count }}x<br>
+			{% endfor %}
+		</form>
+	{% endif %}
+</body>
