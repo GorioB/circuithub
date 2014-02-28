@@ -10,14 +10,17 @@ a.listlink{
 }
 
 .x{
-	font-size: 8px;
-	padding: 1px 3px 2px 3px;
-	background: #825151;
-	color: #f7f7f7;
+	font-size: 25px;
+	color: #333;
+	border: 0;
+	background: rgba(255,255,255,0);
+	font-family: 'FontAwesome';
 }
 
 .x:hover{
-	background: red;
+	background: #333;
+	color: #e7e7e7;
+	cursor: pointer;
 }
 
 .ultimateList{
@@ -27,24 +30,48 @@ a.listlink{
 	border-top: 1px solid #c9c9c9;
 	border-bottom: 1px solid #C9c9c9;
 	margin-bottom: 20px;
+	float: left;
+	width: 95%;
 }
 
 .ultimateList:hover{
-	background: #eee;
+	background: #e7e7e7;
 }
 
 a.listname{
 	font-weight: 400;
 	font-size: 40px;
 	letter-spacing: -.05em;
+	float: left;
+}
+
+a.listname:hover{
+	color: #aaa;
 }
 
 .checklist{
 	padding: 10px 0 10px 10px;
 	border-top: 1px solid #c9c9c9;
 	list-style: none;
+	float: left;
+	width: 99%;
 }
 
 .checklist:hover{
-	background: #e0e0e0;
+	background: #d7d7d7;
+}
+
+.checklist form	{
+	margin: 0 auto;
+}
+
+.cktname{
+	width: 95%;
+	float: left;
+	line-height: 30px;
+}
+
+.coolx{
+	margin-left: 10px;
+	font-size: 15px;
 }
