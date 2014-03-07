@@ -21,8 +21,8 @@
 			<div id="logotype"><a href={% url 'loginapp.views.index_view' %}><strong>circuit</strong><notstrong>hub</notstrong></a></div>
 		</div>
 		<div id="buttonland">
-			<button id="browse" class="functions btn-1c">browse</button>
-			<button id="manual" class="functions btn-1c">input</button>
+			<a href='/u/'><button id="browse" class="functions btn-1c">browse</button></a>
+			<a href='/upload/'><button id="manual" class="functions btn-1c">input</button></a>
 		</div>
 	</div>
 	{% block contents %}{% endblock %}

@@ -13,6 +13,13 @@ def listRawLists(request,owner_id):
 	context = RequestContext(request,{'listlist':ownersLists})
 	return render(request,'circuits/listTemplate.html',context)
 
+def goToHome(request):
+	if(request.user.is_authenticated()):
+		context = RequestContext(request)
+		return redirect("/u/"+request.user.username)
+	else:
+		return redirect("/u/guest")
+		
 def printFriendly(request,owner_id,list_id,circuit_name):
 	listowner = request.user.username
 	rawList = RawList.objects.get(owner=listowner,name=list_id)
