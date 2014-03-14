@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'loginapp',
     'circuits',
     'upload',
+    'pricing',
 )
 
 MIDDLEWARE_CLASSES = (
