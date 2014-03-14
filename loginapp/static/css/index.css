@@ -208,3 +208,58 @@ notstrong{
 	cursor:pointer;
 }
 
+#randomstuff{
+	width: 97%;
+	min-height: 100px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 4em;
+	letter-spacing: -0.01em;
+	font-weight: 300;
+	line-height: 1em;
+	color: #333;
+}
+
+#manualinputland{
+	width: 44%;
+	min-height: 200px;
+	float: left;
+	padding: 10px 20px 10px 20px;
+	background: rgba(200,200,200, 0.7);
+	margin-right: 20px;
+}
+
+#uploadform{
+	width: 44%;
+	min-height: 200px;
+	float: left;
+	padding: 10px 20px 10px 20px;
+	background: rgba(220,220,220, 0.7);
+}
+
+.giantletters{
+	font-weight: 700;
+	font-size: 2.5em;
+	color: #444;
+}
+
+.moreinformation{
+	font-size: 0.8em;
+	text-align: justify;
+}
+
+#enterdream{
+	border-color: #222;
+	color: #222;
+}
+
+#enterdream:hover{
+	border-color: #B81616;
+	background: #B81616;
+	color: #ccc;
+}
+
+.formofupload{
+	font-family: 'Oxygen';
+	font-size: 1em;
+}
