@@ -70,7 +70,6 @@
 	</div>
 
 </body>
-	<script src="{% static "js/max.js" %}"></script>
 	<script type="text/javascript">
 		var button_name;
 		var input_name;
@@ -82,6 +81,29 @@
 		var itemxxx = new Array();
 		var max_value = new Array();
 		var niceindex;
+		var blah;
+		var yehey;
+		var stuff;
+
+		{% for item in contents %}
+			itemxxx[counter] = new String('{{ item.device_model }}{{ item.main_value }}');
+			max_value[counter] = {{ item.device_count }};
+			counter++;
+		{% endfor %}
+
+		dragon = itemxxx.length;
+
+		while(dragon > 0){
+			dragon--;
+			yehey = itemxxx[dragon] + '_box';
+			stuff = document.getElementById(yehey).getAttribute('value');
+			if(stuff >= max_value[dragon]){
+				document.getElementById(itemxxx[dragon]).checked = true;
+				document.getElementById(yehey).setAttribute("status", "1");
+			}
+		}
+
+
 
 		$('.switch').click(function(){
 			button_name = $(this).attr('id');
@@ -106,18 +128,14 @@
 			}else{
 				document.getElementById(input_name).setAttribute("status", "0");
 				document.getElementById(input_name).setAttribute("value", "0");
+//				document.getElementById(input_name).checked = true;
 			}
 
 
 		});
 
-		var blah;
 
-		{% for item in contents %}
-			itemxxx[counter] = new String('{{ item.device_model }}{{ item.main_value }}');
-			max_value[counter] = {{ item.device_count }};
-			counter++;
-		{% endfor %}
+
 	</script>	
 </html>
 
