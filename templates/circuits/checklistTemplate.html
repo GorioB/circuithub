@@ -8,17 +8,51 @@
 	<div id="checklistTemplate" class="listContainer">
 		{% if contents %}
 		<form action='update/' method='post'>{% csrf_token %}
-			<ul>
+			<table class="nicetable">
+				<tr class="tableheader">
+					<td>
+						Device
+					</td>
+					<td>
+						Value
+					</td>
+					<td>
+						Quantity
+					</td>
+					<td>
+						Unit Price
+					</td>
+				</tr>
 			{% for item in contents %}
-				<li><span style="float:left;"><span class="deviceModel">{{ item.device_model }}</span> : <span class="deviceValue">{{ item.main_value }}</span></span><span class="deviceHappiness"><input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}' class="listInput">&nbsp;/&nbsp;{{ item.device_count }} </span>
-				<br><span class="pera">Php <input type='text' value='{{ item.price }}' name='{{ item.pk }}_price' class="listInput"></span>
-			</li>
+				<tr>
+					<td class="device">
+						<span class="deviceModel">{{ item.device_model }}</span>
+					</td>
+					<td class="valueOfDevice">
+						<span class="deviceValue">{{ item.main_value }}</span>
+					</td>
+					<td class="numberOfDevice">
+						<span class="deviceHappiness"><input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}' class="listInput">&nbsp;/&nbsp;{{ item.device_count }} </span>
+					</td>
+					<td class="priceofDevice">
+						<span class="pera">&#8369; <input type='text' value='{{ item.price }}' name='{{ item.pk }}_price' class="listInput"></span>
+					</td>
+				</tr>
 			{% endfor %}
-			</ul><br><br><span class='peratotal'>
 			{% if cost %}
-			P{{ cost }} total
-			{% endif %}</span><br><br>
-			<input type="submit" value="Update Checklist" class="osambutton">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class='peratotal'>
+						&#8369; &nbsp;{{ cost }} total
+						{% endif %}</span><br><br>
+					</td>
+				</tr>
+			</table>
+				<div id="updatebox">
+					<input type="submit" value="&#xf021;" class="osambutton functions updatechecklist"><span style="font-weight: 300; font-size: 12px; line-height: 0px; z-index: 5;"><br>Update Checklist</span>
+				</div>
 		</form>
 		{% endif %}
 	</div>

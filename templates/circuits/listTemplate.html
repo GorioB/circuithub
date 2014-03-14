@@ -29,7 +29,7 @@
 					<li class="checklist" >
 						<span class="cktname">{{ circuitlist.name }}</span>
 					<form action='{% url 'circuits.views.deleteCheckList' circuitlist.owner rawlist.name circuitlist.name %}'>
-						<input type='submit' value=&#61460; class="x" >
+						<input type='submit' value=&#xf014; class="x" >
 					</form>
 					</li>
 					<!-----<a href = {% url 'circuits.views.deleteCheckList' circuitlist.owner rawlist.name circuitlist.name %} class="x"  title="Delete">x</a>---->
@@ -40,7 +40,15 @@
 			{% endif %}
 		{% endfor %}
 		</ul>
+	{% else %}
+		<div class="emptynotice" style="line-height:  400px;">
+			<span style="clear: left; line-height: 150px;">&nbsp;</span>
+			<div class="thenotice" style="clear: left; line-height: 30px;">
+			<h1>Walang laman. :(</h1><span style="clear: left; line-height: 20px;">Mag-upload ka. Pindutin mo yung input sa taas.</span>
+			</div>
+		</div>
 	{% endif %}
+
 </div>
 </body>
 </html>
