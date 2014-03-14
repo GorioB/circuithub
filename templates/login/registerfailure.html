@@ -1,2 +1,10 @@
 {% extends 'login/register.html' %}
-{% block failure %}{% for issue in issues %}{{ issue }}<br>{% endfor %}{% endblock %}
+
+{% block failure %}
+
+	<div class="notif-error">
+	{% for issue in issues %}
+		{{ issue }}<br>
+	{% endfor %}
+	</div><br/>
+{% endblock %}

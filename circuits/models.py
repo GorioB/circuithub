@@ -5,6 +5,7 @@ from upload.SchParser import findPrice
 class RawList(models.Model):
 	owner=models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
+	author=models.CharField(max_length=20)
 
 	def __unicode__(self):
 		return self.owner+" "+self.name
@@ -21,7 +22,7 @@ class RawList(models.Model):
 				bought_count=0,price=str(findPrice(i.device_model,'pricelist.csv')))
 		return c
 
-#CircuitList owner field is for removal
+#CircuitList owner field is for removal but I forgot why
 class CircuitList(models.Model):
 	owner=models.CharField(max_length=20)
 	name=models.CharField(max_length=20)

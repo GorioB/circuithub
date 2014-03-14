@@ -169,6 +169,15 @@ notstrong{
 	width: 100%;
 }
 
+
+.notif-error{
+	background: #FF9999;
+	border: 1px solid #B31515;
+	padding: 5px;
+	text-align: center;
+	font-weight: 300;
+}
+
 .text-label {
 	color: pink;
 	font-weight: bold;
@@ -183,3 +192,4 @@ notstrong{
 	color: #777;
 	font-weight: 300;
 }
+

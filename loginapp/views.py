@@ -19,6 +19,8 @@ def index_view(request):
 		return render(request,'login/logout_block.html',context)
 
 def login_view(request):
+	
+	issues = []
 	username = request.POST['username']
 	password = request.POST['passwd']
 	user = authenticate(username=username,password=password)
@@ -29,8 +31,13 @@ def login_view(request):
 		else:
 			return HttpResponseRedirect("/")
 	else:
-		return HttpResponseRedirect("/")
-
+		
+		issues.append("Incorrect username or password :(")
+		context = RequestContext(request, {'issues' : issues})
+		#return HttpResponseRedirect("/")
+		print "theres an error in login"
+		return render(request, 'login/login_error.html', context)
+		
 def logout_view(request):
 	logout(request)
 	return HttpResponseRedirect("/")
@@ -46,12 +53,14 @@ def register_submit(request):
 	password2 = request.POST['passwordconfirm']
 
 	if username_exists(username):
+		print "username already taken"
 		issues.append("Username already taken")
 
 	if password!=password2:
 		issues.append("Passwords don't match")
 
 	if len(issues):
+		print "rendering registerfailure.html"
 		context = RequestContext(request,{'issues':issues})
 		return render(request,'login/registerfailure.html',context)
 

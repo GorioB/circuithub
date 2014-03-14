@@ -1,0 +1,8 @@
+{% extends 'upload/form.html' %}
+{% block uploaderror %}
+	<div class='notif-error'>
+	{% for issue in issues %}
+		{{ issue }}
+	{% endfor %}
+	</div>
+{% endblock %}

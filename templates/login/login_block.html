@@ -2,6 +2,10 @@
 
 {% block title %}Welcome! {% endblock %}
 {% block loggedin %}
+	
+	{% block loginerror %}{% endblock %}
+	
+
 	<form action="/login/" method='post'>{% csrf_token %}
 <!----			<input type="text" name="username" class="usr_pw" title="Username" value="Username">
 			<input type="password" name="passwd" class="usr_pw" title="Password">---->
@@ -15,4 +19,6 @@
 				<input type="submit" value="Register" class="functions" id="register">
 	</form>
 
+
 {% endblock %}
+
