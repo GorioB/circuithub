@@ -5,3 +5,7 @@ TO DO
 4. Checklist view
 	Suggestions
 	Price Updating
+
+Accomplishments:
+1. login and register error notifications
+2. 
