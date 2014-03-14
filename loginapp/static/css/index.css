@@ -168,3 +168,11 @@ notstrong{
 #login:active:after {
 	width: 100%;
 }
+
+.notif-error{
+	background: #FF9999;
+	border: 1px solid #B31515;
+	padding: 5px;
+	text-align: center;
+	font-weight: 300;
+|

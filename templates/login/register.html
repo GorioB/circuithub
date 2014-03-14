@@ -4,9 +4,13 @@
 
 
 {% block contents %}
-
+	
+	
+	
 	<div id="box">
+		
 		<div id="registrationform">
+			{% block failure %}{% endblock %}
 			<form action="/register_submit/" method='post'>
 				{% csrf_token %}
 				Name: <input type="text" name="username"><br>
@@ -17,9 +21,6 @@
 			</form>
 		</div>
 	</div>
-	{% block failure %}{% endblock %}
-
-</body>
-</html>
+	
 
 {% endblock %}
