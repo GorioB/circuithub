@@ -34,14 +34,14 @@ def printFriendly(request,owner_id,list_id,circuit_name):
 	context = RequestContext(request,{'clist':circuitList})
 	return render(request,'circuits/printTemplate.html',context)
 
-def listRawContents(request,owner_id,list_id,author_id):
+def listRawContents(request,owner_id,list_id):
 	listowner= request.user.username
 	ownersLists=RawList.objects.get(owner=owner_id,name=list_id)
 	contents = ownersLists.rawelement_set.all()
 	context = RequestContext(request,{'contents':contents})
 	return render(request,'circuits/contentsTemplate.html',context)
 	
-def listCircuitContents(request,owner_id,list_id,circuit_name,author_id):
+def listCircuitContents(request,owner_id,list_id,circuit_name):
 	listViewer=request.user.username
 	rawList = RawList.objects.get(owner=owner_id,name=list_id)
 	circuitList = rawList.circuitlist_set.get(name=circuit_name)
@@ -94,10 +94,8 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 
 def deleteRawList(request,owner_id,list_id):
 	user=request.user.username
-	try:
-		rawList = RawList.objects.get(owner=user,name=list_id)
-		circuitList = rawList.circuitlist_set.all()
-	except:
+	rawList = RawList.objects.get(owner=user,name=list_id)
+	circuitList = rawList.circuitlist_set.all()
 	for i in circuitList:
 		i.delete()
 		
