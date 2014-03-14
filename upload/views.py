@@ -20,7 +20,6 @@ def upload(request):
 		return render(request, 'upload/upload_error.html', context);
 	
 	
-
 def viewFile(request):
 
 	f = request.FILES['upfile']
@@ -69,3 +68,8 @@ def userUpload(request):
 		newname2=giveName()
 		newRealList.generateCircuitList(newname2)
 		return redirect("/u/guest/"+newname+"/"+newname2)
+		
+		
+def manual(request):
+	return render(request, 'upload/manual.html')
+	

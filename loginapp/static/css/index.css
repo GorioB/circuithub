@@ -193,3 +193,18 @@ notstrong{
 	font-weight: 300;
 }
 
+
+
+.awesome{ 
+	font-family:'FontAwesome';
+}
+
+.awesomeBtn{
+	font-family:'FontAwesome';
+}
+
+
+.awesomeBtn:hover{
+	cursor:pointer;
+}
+

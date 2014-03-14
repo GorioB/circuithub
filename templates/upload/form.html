@@ -7,6 +7,9 @@
 
 	
 	<div class="listContainer">
+	
+	<button onclick="window.location.href='/upload/manual/'">Manual Upload</button>
+	
 		{% block uploaderror %}{% endblock %} <br/>
 		<form method='post' enctype='multipart/form-data' action='view/'>{% csrf_token %}
 			<input id='fileBrowseBtn' type='file' name='upfile' value=''>
