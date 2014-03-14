@@ -63,6 +63,15 @@ def realValue(string):
 	if string[len(string)-1]=='F': string=string[0:len(string)-1] #remove farad
 	if string[len(string)-1]=='H': string=string[0:len(string)-1] #remove henry
 	newstring=string
+
+	#if string is found to be not a number (e.g. "NA"), returns the string
+	count=0;
+	for i in range(0, len(string)):
+		if isNum(string[i])==False and string[i]!='.':
+			count=count+1
+	if (count>=2):
+		return string
+
 	for i in range(0, len(string) - 1):
 		if (isNum(string[i]))==False and string[i]!='.':
 			newstring=string[0:i] + '.' + string[i+1:len(string)] + string[i]
@@ -122,7 +131,7 @@ def schParts(filename):
 	for i in range(0, len(plist)):
 		append = False
 		#note, you won't append all the time because some "parts" aren't real (e.g. GND)
-		if (plist[i]["library"] == "rcl"): #rcl parser
+		if (plist[i]["library"] == "rcl" or plist[i]["library"] == "resistor"): #rcl parser
 			name = plist[i]["name"]
 			value = plist[i]["value"]
 			kind = "RLC"
@@ -146,7 +155,7 @@ def schParts(filename):
 			subtype = ""
 			model = plist[i]["deviceset"]
 			append = True
-		elif (plist[i]["library"]!="frames" and plist[i]["library"]!="supply1"): #misc parser
+		elif (plist[i]["library"]!="frames" and plist[i]["library"]!="supply1" and plist[i]["library"]!="supply2"): #misc parser
 			name = plist[i]["name"]
 			value = ""
 			kind = "Misc"

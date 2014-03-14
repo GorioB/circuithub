@@ -6,12 +6,30 @@
 {% block contents %}
 
 	
-	<div class="listContainer">
-		{% block uploaderror %}{% endblock %} <br/>
-		<form method='post' enctype='multipart/form-data' action='view/'>{% csrf_token %}
-			<input id='fileBrowseBtn' type='file' name='upfile' value=''>
-			<input id='uploadBtn' type='submit' value = 'Upload'>
-		</form>
+	<div class="listContainer" style="margin: 0 auto; text-align: center;">
+	
+		<div id="randomstuff">
+			Two ways to make your dreams come true!
+		</div>
+		<div id="manualinputland">
+			<div class="giantletters">MANUAL INPUT</div>
+			<p class="moreinformation">
+				Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.
+			</p>
+			<button onclick="window.location.href='/upload/manual/'" class="functions" id="enterdream">ENTER YOUR DREAMS HERE!</button>
+		</div>
+
+		<div id="uploadform">
+			<div class="giantletters">UPLOAD *.sch</div>
+			<p class="moreinformation">
+				Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.
+			</p>
+			{% block uploaderror %}{% endblock %} <br/>
+			<form method='post' enctype='multipart/form-data' action='view/' >{% csrf_token %}
+				<input id='fileBrowseBtn' type='file' name='upfile' value='' class='formofupload'>
+				<input id='uploadBtn' type='submit' value = 'Upload' class='formofupload'>
+			</form>
+		</div>
 
 	</div>
 </body>

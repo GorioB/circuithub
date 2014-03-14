@@ -94,7 +94,7 @@ a.listname:hover{
 .listInput{
 	font-size: 1em;
 	text-align: right;
-	width: 30%;
+	width: 50%;
 	font-family: inherit;
 }
 
@@ -104,7 +104,7 @@ a.listname:hover{
 }
 
 .deviceHappiness{
-	float: right;
+	float: left;
 }
 
 .pera{
@@ -159,6 +159,13 @@ a.listname:hover{
 
 .numberOfDevice{
 	width: 30%;
+	text-align: left;
+}
+
+.numberOfDevice .listInput{
+	width: 70%;
+	margin-left: 10px;
+
 }
 
 .priceOfDevice{
@@ -175,7 +182,7 @@ tr{
 }
 
 .updatechecklist{
-	background: #F7F7F7;
+	background: rgba(255,255,255,0);
 	font-size: 50px;
 	border: 0;
 	color: #D44646;
@@ -196,10 +203,146 @@ tr{
 }
 
 .updatechecklist:hover{
-	background: #F7F7F7;
+	background: rgba(255,255,255,0);
 	color: #C41616;
 
 	-webkit-transform:rotate(360deg);
     -moz-transform:rotate(360deg);
     -o-transform:rotate(360deg);
 }
+
+#updatebox{
+	float: right;
+}
+
+#printbox{
+	float: left;
+}
+
+#printbutton{
+	font-family: 'FontAwesome';
+
+		background: #F7F7F7;
+	font-size: 30px;
+	border: 0;
+	color: #777;
+	padding: 15px 15px 15px 22px;
+
+	-webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+     
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+
+    z-index: 4
+}
+
+#printbutton:hover{
+	color: #111;
+
+	-webkit-transition: color 200ms ease-out 200ms;
+    -moz-transition: color 200ms ease-out 200ms;
+    -o-transition: color 200ms ease-out 200ms;
+    transition: color 200ms ease-out 200ms;
+}
+
+.maxbutton{
+	font-family: 'FontAwesome';
+	font-size: 1.3em;
+	border: 0;
+	padding: 5px;
+	color: #F7F7F7;
+	background: #74C289;
+	float: left;
+	margin-left: 20px;
+
+
+	box-shadow: 
+  0 1px 2px #fff, /*bottom external highlight*/
+  0 -1px 1px #666, /*top external shadow*/ 
+  inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/ 
+  inset 0 1px 1px rgba(255,255,255,0.8); /*top internal highlight*/;
+}
+
+.maxbutton:hover{
+	cursor: pointer;
+}
+
+.maxbox div
+{
+	clear: both;
+	z-index: 5;
+}
+
+.maxbox{
+	z-index: 0;
+	width: 0;
+}
+
+
+
+input.switch:empty
+{
+	display: none;
+}
+
+
+
+input.switch:empty ~ label
+{
+
+	position: relative;
+	float: left;
+	line-height: 1.6em;
+	text-indent: 4em;
+	margin: 0.2em 0;
+	cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input.switch:empty ~ label:before, 
+input.switch:empty ~ label:after
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	content: ' ';
+	width: 3.6em;
+	background-color: #c33;
+	border-radius: 0.3em;
+	box-shadow: inset 0 0.2em 0 rgba(0,0,0,0.3);
+	-webkit-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+}
+
+input.switch:empty ~ label:after
+{
+	width: 1.4em;
+	top: 0.1em;
+	bottom: 0.1em;
+	margin-left: 0.1em;
+	background-color: #fff;
+	border-radius: 0.15em;
+	box-shadow: inset 0 -0.2em 0 rgba(0,0,0,0.2);
+}
+
+input.switch:checked ~ label:before
+{
+	background-color: #393;
+}
+
+input.switch:checked ~ label:after
+{
+	margin-left: 2.1em;
+}
+
+label{}

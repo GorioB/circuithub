@@ -1,6 +1,7 @@
 {% extends "login/navbar.html" %}
 
 {% block title %}{% endblock %}
+{% load staticfiles %}
 
 
 {% block contents %}
@@ -16,7 +17,7 @@
 					<td>
 						Value
 					</td>
-					<td>
+					<td colspan="2">
 						Quantity
 					</td>
 					<td>
@@ -31,8 +32,14 @@
 					<td class="valueOfDevice">
 						<span class="deviceValue">{{ item.main_value }}</span>
 					</td>
+					<td class="maxbox">
+						<div>	
+							<input type="checkbox" id="{{ item.device_model }}{{ item.main_value }}" name="{{ item.device_model }}" class="switch" />
+							<label for="{{ item.device_model }}{{ item.main_value }}">&nbsp;</label>
+						</div>
+					</td>
 					<td class="numberOfDevice">
-						<span class="deviceHappiness"><input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}' class="listInput">&nbsp;/&nbsp;{{ item.device_count }} </span>
+						<span class="deviceHappiness"><input type='text' value='{{ item.bought_count }}' name='{{ item.pk }}' class="listInput" id="{{ item.device_model }}{{ item.main_value }}_box" status='0'>&nbsp;/<span id="{{ item.device_model }}{{ item.main_value }}_max" class="nicevalue">&nbsp;{{ item.device_count }}</span></span>
 					</td>
 					<td class="priceofDevice">
 						<span class="pera">&#8369; <input type='text' value='{{ item.price }}' name='{{ item.pk }}_price' class="listInput"></span>
@@ -44,20 +51,92 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td class='peratotal'>
 						&#8369; &nbsp;{{ cost }} total
-						{% endif %}</span><br><br>
+						{% endif %}</span>
 					</td>
 				</tr>
 			</table>
 				<div id="updatebox">
 					<input type="submit" value="&#xf021;" class="osambutton functions updatechecklist"><span style="font-weight: 300; font-size: 12px; line-height: 0px; z-index: 5;"><br>Update Checklist</span>
+					</form>
 				</div>
-		</form>
+				<div id="printbox">
+					<a href="print"><button style="font-family:'FontAwesome';" class="osambutton functions" id="printbutton">&#xf02f;</button>
+					<br><span style="font-weight: 300; font-size: 12px; line-height: 0px; z-index: 5; color: #222; float: left; margin-left: 10px; margin-top: -10px;">Printer Version</span></a>
+				</div>
 		{% endif %}
 	</div>
 
 </body>
+	<script type="text/javascript">
+		var button_name;
+		var input_name;
+		var stat = new Array();
+		var dragon;
+		var max_number;
+		var counter = 0;
+		var counter2 = 0;
+		var itemxxx = new Array();
+		var max_value = new Array();
+		var niceindex;
+		var blah;
+		var yehey;
+		var stuff;
+
+		{% for item in contents %}
+			itemxxx[counter] = new String('{{ item.device_model }}{{ item.main_value }}');
+			max_value[counter] = {{ item.device_count }};
+			counter++;
+		{% endfor %}
+
+		dragon = itemxxx.length;
+
+		while(dragon > 0){
+			dragon--;
+			yehey = itemxxx[dragon] + '_box';
+			stuff = document.getElementById(yehey).getAttribute('value');
+			if(stuff >= max_value[dragon]){
+				document.getElementById(itemxxx[dragon]).checked = true;
+				document.getElementById(yehey).setAttribute("status", "1");
+			}
+		}
+
+
+
+		$('.switch').click(function(){
+			button_name = $(this).attr('id');
+			input_name = button_name + '_box';
+			stat = document.getElementById(input_name).getAttribute('status');
+			max_number = $('.nicevalue').text();
+
+			counter2 = itemxxx.length;
+
+			for( ; counter2 > -1 ; counter2--){
+				if(button_name == itemxxx[counter2]){
+					niceindex = counter2;
+					break;
+				}
+			}
+
+//			alert(stat[niceindex]);
+
+			if(stat == 0){
+				document.getElementById(input_name).setAttribute("status", "1");
+				document.getElementById(input_name).setAttribute("value", max_value[niceindex]);
+			}else{
+				document.getElementById(input_name).setAttribute("status", "0");
+				document.getElementById(input_name).setAttribute("value", "0");
+//				document.getElementById(input_name).checked = true;
+			}
+
+
+		});
+
+
+
+	</script>	
 </html>
 
 {% endblock %}

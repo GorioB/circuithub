@@ -5,8 +5,31 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from circuits.models import RawList, CircuitList
+from pricing.models import *
 import names
+#####util
+def incIfExisting(owner,rawname,checklistname=''):
+	d = RawList.objects.filter(owner=owner,name=rawname)
+	if checklistname=='':
+		if len(d)==0:
+			return rawname
+		else:
+			return incIfExisting(owner,rawname+"_new")
+	else:
+		d = d[0]
+		d = d.circuitlist_set.filter(name=checklistname)
+		if len(d)==0:
+			return checklistname
+		else:
+			return incIfExisting(owner,rawname,checklistname+"_new")
 
+def willItFloat(char):
+	try:
+		float(char)
+		return 1
+	except:
+		return 0
+####views
 def listRawLists(request,owner_id):
 	listowner = request.user.username
 	ownersLists = RawList.objects.filter(owner=owner_id)
@@ -22,8 +45,8 @@ def goToHome(request):
 		
 def printFriendly(request,owner_id,list_id,circuit_name):
 	listowner = request.user.username
-	rawList = RawList.objects.get(owner=listowner,name=list_id)
-	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	rawList = RawList.objects.filter(owner=listowner,name=list_id)[0]
+	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	contents = circuitList.realelement_set.all()
 	totalCost=0
 	for i in contents:
@@ -34,15 +57,15 @@ def printFriendly(request,owner_id,list_id,circuit_name):
 
 def listRawContents(request,owner_id,list_id):
 	listowner= request.user.username
-	ownersLists=RawList.objects.get(owner=owner_id,name=list_id)
+	ownersLists=RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	contents = ownersLists.rawelement_set.all()
 	context = RequestContext(request,{'contents':contents})
 	return render(request,'circuits/contentsTemplate.html',context)
 	
 def listCircuitContents(request,owner_id,list_id,circuit_name):
 	listViewer=request.user.username
-	rawList = RawList.objects.get(owner=owner_id,name=list_id)
-	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
+	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	contents = circuitList.realelement_set.all()
 	totalCost=0
 	for i in contents:
@@ -53,12 +76,15 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 def createChecklist(request,owner_id,list_id):
 	user = request.user.username
 	circuit_name = request.POST['circuit_name'].replace(' ','_')
-	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
+	newname=list_id
 	if rawList.owner!=user:
 		oldRawListContents = rawList.rawelement_set.all()
 		rawList.pk=None
 		rawList.owner=user
 		rawList.save()
+		newname = incIfExisting(user,list_id)
+		rawList.name=newname
 		for i in oldRawListContents:
 			rawList.rawelement_set.create(main_value=i.main_value,
 				device_type=i.device_type,
@@ -66,34 +92,36 @@ def createChecklist(request,owner_id,list_id):
 				device_model=i.device_model,
 				device_count=i.device_count)
 
-
 	if(circuit_name!=''):
-		rawList.generateCircuitList(circuit_name)
+		rawList.generateCircuitList(incIfExisting(user,newname,circuit_name))
 	else:
-		rawList.generateCircuitList(names.giveName())
+		rawList.generateCircuitList(incIfExisting(user,newname,names.giveName()))
 
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
 def updateChecklist(request,owner_id,list_id,circuit_name):
 	user = request.user.username
-	rawList = RawList.objects.get(owner=owner_id,name=list_id)
-	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
+	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	contents = circuitList.realelement_set.all()
 
 	for i in contents:
-		if i.bought_count != float(request.POST[str(i.pk)]):
-			element = circuitList.realelement_set.get(pk=i.pk)
-			element.bought_count=float(request.POST[str(i.pk)])
+		if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
+			element = circuitList.realelement_set.filter(pk=i.pk)[0]
+			element.bought_count=int(request.POST[str(i.pk)])
 			element.save()
-		if i.price != float(request.POST[str(i.pk)+"_price"]):
-			element = circuitList.realelement_set.get(pk=i.pk)
-			element.price=float(request.POST[str(i.pk)+"_price"])
-			element.save()
+		if willItFloat(request.POST[str(i.pk)+"_price"]):
+			if (float(i.price) != float(request.POST[str(i.pk)+"_price"])) and (float(request.POST[str(i.pk)+"_price"])>=0):
+				element = circuitList.realelement_set.filter(pk=i.pk)[0]
+				element.price=float(request.POST[str(i.pk)+"_price"])
+				element.save()
+				incrementPriceOrNewEntry(m_type=element.device_type,s_type=element.device_subtype,mod=element.device_model,pri=element.price)
+
 	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
 
 def deleteRawList(request,owner_id,list_id):
 	user=request.user.username
-	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	rawList = RawList.objects.filter(owner=user,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.all()
 	for i in circuitList:
 		i.delete()
@@ -103,8 +131,8 @@ def deleteRawList(request,owner_id,list_id):
 
 def deleteCheckList(request,owner_id,list_id,circuit_name):
 	user = request.user.username
-	rawList = RawList.objects.get(owner=owner_id,name=list_id)
-	circuitList = rawList.circuitlist_set.get(name=circuit_name)
+	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
+	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	circuitList.delete()
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
