@@ -1,0 +1,7 @@
+TO DO
+1. Site testing
+2. Manual input
+3. Make DB model for prices
+4. Checklist view
+	Suggestions
+	Price Updating

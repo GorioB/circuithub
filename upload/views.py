@@ -30,10 +30,10 @@ def userUpload(request):
 		return redirect('upload.views.upload')
 
 	if request.user.is_authenticated():
-		newRealList=RawList(owner=request.user.username,name=f.name.split('.')[0])
+		newRealList=RawList(owner=request.user.username,name=f.name.split('.')[0],author=request.user.username)
 	else:
-		newname = giveName()[:20]
-		newRealList=RawList(owner="guest",name=newname)
+		newname = giveName()
+		newRealList=RawList(owner="guest",name=newname,author='guest')
 
 	newRealList.save()
 	for i in b:
@@ -42,6 +42,6 @@ def userUpload(request):
 	if request.user.is_authenticated():
 		return redirect("/u/"+request.user.username)
 	else:
-		newname2=giveName()[:20]
+		newname2=giveName()
 		newRealList.generateCircuitList(newname2)
 		return redirect("/u/guest/"+newname+"/"+newname2)

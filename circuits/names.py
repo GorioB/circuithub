@@ -3,7 +3,7 @@ import random
 def giveName():
 	n= ['Asimov','Scalzi',
 	'Herbert','Adams',
-	'Card','Dick',
+	'Card',
 	'Doctorow','Gaiman',
 	'Gibson','Orwell',
 	'Huxley','Clarke',

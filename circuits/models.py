@@ -5,6 +5,7 @@ from upload.SchParser import findPrice
 class RawList(models.Model):
 	owner=models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
+	author=models.CharField(max_length=20)
 
 	def __unicode__(self):
 		return self.owner+" "+self.name
