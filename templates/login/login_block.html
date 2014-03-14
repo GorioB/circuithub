@@ -7,8 +7,12 @@
 	
 
 	<form action="/login/" method='post'>{% csrf_token %}
-			<input type="text" name="username" class="usr_pw">
-			<input type="password" name="passwd" class="usr_pw">
+<!----			<input type="text" name="username" class="usr_pw" title="Username" value="Username">
+			<input type="password" name="passwd" class="usr_pw" title="Password">---->
+			<input type="text" id="placeholder2" value="Username" name="username" class="usr_pw" onFocus="setUser();"/>
+			<input type="text" id="username" value="" onBlur="checkUser();" name="username" class="usr_pw" style="display: none;"/>
+			<input type="text" id="placeholder" value="Password" name="passwd" class="usr_pw" onFocus="setPass();"/>
+			<input type="password" id="password" value="" onBlur="checkPass();" name="passwd" class="usr_pw" style="display: none;"/>
 			<input type="submit" value="Login" class="functions" id="login">
 	</form>
 	<form action="/register/" method='post' id="regform">{% csrf_token%}

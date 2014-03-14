@@ -1,0 +1,18 @@
+{% extends "login/navbar.html" %}
+
+{% block title %}{% endblock %}
+
+
+{% block contents %}
+
+	<div class="listContainer">
+		<form method='post' enctype='multipart/form-data' action='view/'>{% csrf_token %}
+			<input type='file' name='upfile' value=''>
+			<input type='submit' value = 'Upload'>
+		</form>
+
+	</div>
+</body>
+</html>
+
+{% endblock %}

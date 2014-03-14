@@ -169,6 +169,7 @@ notstrong{
 	width: 100%;
 }
 
+<<<<<<< HEAD
 .notif-error{
 	background: #FF9999;
 	border: 1px solid #B31515;
@@ -176,3 +177,19 @@ notstrong{
 	text-align: center;
 	font-weight: 300;
 |
+=======
+.text-label {
+	color: pink;
+	font-weight: bold;
+}
+
+#placeholder{
+	color: #777;
+	font-weight: 300;
+}
+
+#placeholder2{
+	color: #777;
+	font-weight: 300;
+}
+>>>>>>> 70d3b39f5578cc7c32916eac8fc0659ca96c8d54

@@ -1,0 +1,22 @@
+{% extends "login/navbar.html" %}
+
+{% block title %}{% endblock %}
+
+
+{% block contents %}
+
+	<div id="ContentsTemplate" class="listContainer">
+
+		{% if contents %}
+			<ul>
+			{% for item in contents %}
+				<li>{{ item.device_type }} : {{ item.main_value }} - {{ item.device_count }}x</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</div>
+</body>
+</html>
+
+
+{% endblock %}

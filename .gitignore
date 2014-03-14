@@ -2,3 +2,5 @@ venv
 *.pyc
 staticfiles
 venv-dev
+db.sqlite3
+media
