@@ -22,6 +22,13 @@ def incIfExisting(owner,rawname,checklistname=''):
 			return checklistname
 		else:
 			return incIfExisting(owner,rawname,checklistname+"_new")
+
+def willItFloat(char):
+	try:
+		float(char)
+		return 1
+	except:
+		return 0
 ####views
 def listRawLists(request,owner_id):
 	listowner = request.user.username
@@ -99,15 +106,16 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 	contents = circuitList.realelement_set.all()
 
 	for i in contents:
-		if i.bought_count != float(request.POST[str(i.pk)]):
+		if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
 			element = circuitList.realelement_set.filter(pk=i.pk)[0]
-			element.bought_count=float(request.POST[str(i.pk)])
+			element.bought_count=int(request.POST[str(i.pk)])
 			element.save()
-		if float(i.price) != float(request.POST[str(i.pk)+"_price"]):
-			element = circuitList.realelement_set.filter(pk=i.pk)[0]
-			element.price=float(request.POST[str(i.pk)+"_price"])
-			element.save()
-			incrementPriceOrNewEntry(m_type=element.device_type,s_type=element.device_subtype,mod=element.device_model,pri=element.price)
+		if willItFloat(request.POST[str(i.pk)+"_price"]):
+			if (float(i.price) != float(request.POST[str(i.pk)+"_price"])) and (float(request.POST[str(i.pk)+"_price"])>=0):
+				element = circuitList.realelement_set.filter(pk=i.pk)[0]
+				element.price=float(request.POST[str(i.pk)+"_price"])
+				element.save()
+				incrementPriceOrNewEntry(m_type=element.device_type,s_type=element.device_subtype,mod=element.device_model,pri=element.price)
 
 	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
 

@@ -6,13 +6,10 @@ def incrementPriceOrNewEntry(pri,m_type=None,s_type=None,mod=None):
 	d = PricingEntry.objects.all()
 	if m_type!=None:
 		d = d.filter(main_type=m_type)
-		print d
 	if s_type!=None:
 		d = d.filter(sub_type=s_type)
-		print d
 	if mod!=None:
 		d = d.filter(model=mod)
-		print d
 
 	d = d.filter(price=str(pri))
 	if len(d):
