@@ -81,6 +81,10 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 def deleteRawList(request,owner_id,list_id):
 	user=request.user.username
 	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	circuitList = rawList.circuitlist_set.all()
+	for i in circuitList:
+		i.delete()
+		
 	rawList.delete()
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
