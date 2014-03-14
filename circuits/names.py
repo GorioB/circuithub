@@ -30,5 +30,5 @@ def giveName():
 	'Sapphire','Auburn','Plum',
 	'Ocher','Maroon','Purple',
 	'Cerulian','Vermilion']
-	i,j,k = random.randint(0,19),random.randint(0,19),random.randint(0,19)
+	i,j,k = random.randint(0,18),random.randint(0,19),random.randint(0,19)
 	return (n[i]+a[j]+c[k])[:20]
