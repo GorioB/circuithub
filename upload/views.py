@@ -4,6 +4,7 @@ import SchParser
 from circuits.models import RawList
 from circuits.names import giveName
 import re
+from circuits.views import incIfExisting
 
 # Create your views here.
 
@@ -53,7 +54,7 @@ def userUpload(request):
 		return redirect('upload.views.upload')
 
 	if request.user.is_authenticated():
-		newRealList=RawList(owner=request.user.username,name=f.name.split('.')[0],author=request.user.username)
+		newRealList=RawList(owner=request.user.username,name=incIfExisting(request.user.username,f.name.split('.')[0]),author=request.user.username)
 	else:
 		newname = giveName()
 		newRealList=RawList(owner="guest",name=newname,author='guest')
