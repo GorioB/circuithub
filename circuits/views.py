@@ -40,7 +40,7 @@ def listRawContents(request,owner_id,list_id):
 	return render(request,'circuits/contentsTemplate.html',context)
 	
 def listCircuitContents(request,owner_id,list_id,circuit_name):
-	listowner = request.user.username
+	listViewer=request.user.username
 	rawList = RawList.objects.get(owner=owner_id,name=list_id)
 	circuitList = rawList.circuitlist_set.get(name=circuit_name)
 	contents = circuitList.realelement_set.all()
@@ -53,11 +53,24 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 def createChecklist(request,owner_id,list_id):
 	user = request.user.username
 	circuit_name = request.POST['circuit_name'].replace(' ','_')
-	rawList = RawList.objects.get(owner=user,name=list_id)
+	rawList = RawList.objects.get(owner=owner_id,name=list_id)
+	if rawList.owner!=user:
+		oldRawListContents = rawList.rawelement_set.all()
+		rawList.pk=None
+		rawList.owner=user
+		rawList.save()
+		for i in oldRawListContents:
+			rawList.rawelement_set.create(main_value=i.main_value,
+				device_type=i.device_type,
+				device_subtype=i.device_subtype,
+				device_model=i.device_model,
+				device_count=i.device_count)
+		#rawList.circuitlist_set.clear()
+
 	if(circuit_name!=''):
 		rawList.generateCircuitList(circuit_name)
 	else:
-		rawList.generateCircuitList(names.giveName()[:20])
+		rawList.generateCircuitList(names.giveName())
 
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
