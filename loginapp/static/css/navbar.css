@@ -41,6 +41,7 @@ notstrong{
 	position: fixed;
 	top: 0;
 	line-height: 90px;
+	z-index: 99999999;
 }
 
 #logoland{
