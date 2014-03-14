@@ -1,0 +1,12 @@
+<html>
+<body>
+	{% if entries %}
+	<ul>
+	{% for entry in entries %}
+		<li>{{ entry.main_type }},{{ entry.sub_type }},{{ entry.model }},{{ entry.price }},{{ entry.notes }},{{ entry.times_used }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+
+</body>
+</html>

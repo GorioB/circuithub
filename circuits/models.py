@@ -1,5 +1,17 @@
 from django.db import models
 from upload.SchParser import findPrice
+from pricing.models import *
+
+def findBestPriceMatch(raw):
+	pool = PricingEntry.objects.filter(model=raw.device_model.upper())
+	if len(pool)==0:
+		pool = PricingEntry.objects.filter(main_type=raw.device_type.upper(),sub_type=raw.device_subtype.upper())
+	if len(pool)==0:
+		return 0
+	elif len(pool)==1:
+		return pool[0].price
+	else:
+		return pool.order_by('-times_used')[0].price
 
 # Create your models here.
 class RawList(models.Model):
@@ -19,7 +31,8 @@ class RawList(models.Model):
 				device_subtype=i.device_subtype,
 				device_model=i.device_model,
 				device_count=i.device_count,
-				bought_count=0,price=str(findPrice(i.device_model,'pricelist.csv')))
+				bought_count=0,
+				price=str(findBestPriceMatch(i)))
 		return c
 
 #CircuitList owner field is for removal but I forgot why
