@@ -1,7 +1,7 @@
 .listContainer{
 	margin: 0 auto;
 	width: 90%;
-	min-height: 70%;
+	min-height: 100%;
 	padding: 130px 10px 10px 10px;
 }
 
@@ -119,9 +119,6 @@ a.listname:hover{
 	border-top: 1px solid #696969;
 	margin-bottom: 20px;
 	float: right;
-	padding: 20px 0 0 0;
-	font-size: 28px;
-	color: #3BA337;
 }
 
 .osambutton{
@@ -129,77 +126,4 @@ a.listname:hover{
 	font-family: inherit;
 	text-transform: uppercase;
 	font-size: 15px;
-}
-
-.emptynotice{
-	width: 50%;
-	margin: 0 auto;
-	min-height: 400px;
-	margin-top: 30px;
-	background: #f1f1f1;
-	border-top: 1px solid #c9c9c9;
-	border-bottom: 1px solid #C9c9c9;
-	text-align: center;
-	line-height: 400px;
-}
-
-.nicetable tr{
-	border-bottom: 1px solid #777;
-	color: #333;
-}
-
-.device{
-	width: 30%;
-	color: #555;
-}
-
-.valueOfDevice{
-	width: 10%;
-}
-
-.numberOfDevice{
-	width: 30%;
-}
-
-.priceOfDevice{
-	width: 30%;
-}
-
-.tableheader{
-	font-weight: 700;
-	font-size: 25px;
-}
-
-tr{
-	text-align: center;
-}
-
-.updatechecklist{
-	background: #F7F7F7;
-	font-size: 50px;
-	border: 0;
-	color: #D44646;
-	padding: 15px;
-	font-family: 'FontAwesome';
-
-	-webkit-transition-duration: 0.8s;
-    -moz-transition-duration: 0.8s;
-    -o-transition-duration: 0.8s;
-    transition-duration: 0.8s;
-     
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
-
-    z-index: 4
-}
-
-.updatechecklist:hover{
-	background: #F7F7F7;
-	color: #C41616;
-
-	-webkit-transform:rotate(360deg);
-    -moz-transform:rotate(360deg);
-    -o-transform:rotate(360deg);
 }
