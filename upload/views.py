@@ -4,11 +4,10 @@ import SchParser
 from circuits.models import RawList
 from circuits.names import giveName
 import re
-<<<<<<< HEAD
 from pricing.models import *
-=======
+
 from circuits.views import incIfExisting
->>>>>>> 50c2974c455354a72e7b545415727364461f5570
+
 
 # Create your views here.
 
