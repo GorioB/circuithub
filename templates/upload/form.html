@@ -5,7 +5,9 @@
 
 {% block contents %}
 
+	
 	<div class="listContainer">
+		{% block uploaderror %}{% endblock %} <br/>
 		<form method='post' enctype='multipart/form-data' action='view/'>{% csrf_token %}
 			<input id='fileBrowseBtn' type='file' name='upfile' value=''>
 			<input id='uploadBtn' type='submit' value = 'Upload'>
