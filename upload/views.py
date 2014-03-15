@@ -52,9 +52,9 @@ def userUpload(request):
 	b = SchParser.schParts(e)[1]
 	if f.name.split('.')[1]!="sch" and f.name.split('.')[1]!="cir":
 		return redirect('upload.views.upload')
-
+	filename = ''.join(e for e in f.name.split('.')[0] if e.isalnum())
 	if request.user.is_authenticated():
-		newRealList=RawList(owner=request.user.username,name=incIfExisting(request.user.username,f.name.split('.')[0]),author=request.user.username)
+		newRealList=RawList(owner=request.user.username,name=incIfExisting(request.user.username,filename),author=request.user.username)
 	else:
 		newname = giveName()
 		newRealList=RawList(owner="guest",name=newname,author='guest')
