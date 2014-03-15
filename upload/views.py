@@ -4,7 +4,10 @@ import SchParser
 from circuits.models import RawList
 from circuits.names import giveName
 import re
+from pricing.models import *
+
 from circuits.views import incIfExisting
+
 
 # Create your views here.
 
@@ -73,4 +76,65 @@ def userUpload(request):
 		
 def manual(request):
 	return render(request, 'upload/manual.html')
+	
+def manualUpload(request):
+	
+	print str(request.POST)
+	
+	
+	temp = request.POST['maxrow']	
+	if(temp == u''):
+		maxrow = 0;
+	else:
+		maxrow = int(temp)
+	
+	newname = giveName()
+	if request.user.is_authenticated():
+		newRealList=RawList(owner=request.user.username,name=newname,author=request.user.username)
+	else:
+		newRealList=RawList(owner="guest",name=newname,author='guest')		
+	
+	newRealList.save()
+	
+	for i in range (0, maxrow):
+		value = parseValue(request, 'c-val-' + str(i+1))
+		type = parseValue(request, 'c-type-' + str(i+1))
+		subtype = parseValue(request, 'c-subtype-' + str(i+1))
+		model = value
+		count = parseValue(request, 'c-qty-' + str(i+1))
+		
+		
+		if (type == u'RLC'):
+			model = subtype
+		if (type == 'BJT'):
+			value = ""
+		if (type == "Diode"):
+			value = ""
+		
+		try:
+			newRealList.rawelement_set.create(main_value=value,device_type=type,device_subtype=subtype,device_model=model,device_count=count)
+		except:
+			continue
+
+
+
+	if request.user.is_authenticated():
+		return redirect("/u/"+request.user.username)
+	else:
+		newname2=giveName()
+		newRealList.generateCircuitList(newname2)
+		return redirect("/u/guest/"+newname+"/"+newname2)
+
+	
+def parseValue(request, key):
+	print "finding key: " + key
+	try:
+		temp = request.POST[key]	
+	except:
+		temp = "";
+	
+	print "returned " + temp
+	return temp
+
+
 	
