@@ -51,7 +51,7 @@ def printFriendly(request,owner_id,list_id,circuit_name):
 	listowner = request.user.username
 	rawList = RawList.objects.filter(owner=listowner,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
-	contents = circuitList.realelement_set.all()
+	contents = circuitList.realelement_set.order_by('device_model')
 	totalCost=0
 	for i in contents:
 		totalCost+=float(i.price)*i.device_count
