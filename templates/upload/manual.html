@@ -5,6 +5,7 @@
 
 {% block contents %}
 
+
 	
 	<div class="listContainer">
 	
@@ -13,12 +14,25 @@
 		{% block uploaderror %}{% endblock %} <br/>
 		
 		<div><br/>
-			<table id="itemsList">
-			<tr><td><span id="addItemBtn" class="awesomeBtn" style="color:#33AA33">&#xf055</span></td></tr>
-			</table>
+		
+			<div class="notif-error">Please fill up all fields</div><br/>
 			
-			<br>
+			<form id='manualForm' method='post' enctype='multipart/form-data' action='submit/' >{% csrf_token %}
+				
+				<input type="hidden" name="maxrow" id="maxrow"/>
+				<table id="itemsList">
+				<tr>
+					<td><span id="addItemBtn" class="awesomeBtn" style="color:#33AA33">&#xf055</span></td>
+					<td><button type="submit" id="submitBtn">Upload</button></td>
+				</tr>
+				</table>
+				
+				<br>
+
+			</form>
 		</div>
+		
+		
 	</div>
 	
 </body>
