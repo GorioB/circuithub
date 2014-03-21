@@ -9,6 +9,24 @@ var subtypes = {	"RLC" : ['Resistor', 'Inductor', 'Capacitor'],
 
 
 var subtype = "";
+var pricelist;
+
+$.getJSON('pricelist', function(jd){
+	console.log('here');
+	pricelist = JSON.parse(jd);
+	
+	var i;
+	for(i = 0; i < pricelist.length; i++){
+		
+		
+	}
+	
+	
+	
+	
+	
+});
+
 
 
 $(function(){

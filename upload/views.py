@@ -8,6 +8,12 @@ from pricing.models import *
 
 from circuits.views import incIfExisting
 
+from pricing.models import *
+from django.core import serializers #for sending json
+
+import json
+from django.http import HttpResponse
+
 
 # Create your views here.
 
@@ -125,6 +131,10 @@ def manualUpload(request):
 		newRealList.generateCircuitList(newname2)
 		return redirect("/u/guest/"+newname+"/"+newname2)
 
+		
+def getPricelist(request):
+	response_data = serializers.serialize("json", PricingEntry.objects.all())
+	return HttpResponse(json.dumps(response_data), content_type="application/json")
 	
 def parseValue(request, key):
 	print "finding key: " + key
