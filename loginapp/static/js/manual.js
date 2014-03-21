@@ -34,10 +34,6 @@ $.getJSON('pricelist', function(jd){
 		
 	}
 	
-	
-	
-	
-	
 });
 
 
@@ -146,6 +142,17 @@ $(document).on('click', '.c-val', function(){
 });
 
 
+$(document).on('click', '#submitBtn', function(){
+	if (fieldsValid() == false) {
+		event.preventDefault();
+		$('.notif-error').show();
+	}
+});
+
+$(document).on('change', '.input', function(){
+	$('.notif-error').fadeOut();
+});
+
 function removeRight(c_id){ //on select change, remove the elements to the right
 	//cid : c-type-row#
 	var tokens = c_id.split('-');
@@ -160,3 +167,16 @@ function removeRight(c_id){ //on select change, remove the elements to the right
 }
 
 
+function fieldsValid(){
+	if (row == 0) return false; //check if there is an entry at all
+	//check if all fields are filled up:
+	var flag = true;
+	$('.input').each( function() {
+		var value =  $(this).val();
+		if(value == null || value == ""){
+			//console.log('Please enter a value for ' + $(this).attr('name'));
+			flag = false;
+		}
+	});
+	return flag;
+}
