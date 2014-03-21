@@ -62,9 +62,6 @@ $(function(){
 	
 });
 
-$(document).ready( function(){
-	$('.notif-error').hide();
-});
 
 $(document).on('change', '.c-type', function(){
 	var sel = $(this).val();
