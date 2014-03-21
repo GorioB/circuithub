@@ -36,12 +36,16 @@ class RawList(models.Model):
 		return c
 
 #CircuitList owner field is for removal but I forgot why
+
+
 class CircuitList(models.Model):
 	owner=models.CharField(max_length=20)
 	name=models.CharField(max_length=20)
 	rawlist = models.ForeignKey(RawList)
 
+
 class RawElement(models.Model):
+	element_identifier=models.CharField(max_length=20)
 	main_value = models.CharField(max_length=20)
 	device_type = models.CharField(max_length=20)
 	device_subtype = models.CharField(max_length=20)
@@ -50,6 +54,7 @@ class RawElement(models.Model):
 	device_count = models.IntegerField()
 
 class RealElement(models.Model):
+	element_identifier=models.CharField(max_length=20)
 	main_value = models.CharField(max_length=20)
 	device_type = models.CharField(max_length=20)
 	device_subtype = models.CharField(max_length=20)
@@ -59,5 +64,13 @@ class RealElement(models.Model):
 	bought_count = models.IntegerField()
 	price = models.CharField(max_length=20)
 
+	def suggest(self):
+
+
 	def __unicode__(self):
 		return self.device_type+" "+self.main_value
+
+class Suggestible(models.Model):
+	element = models.ForeignKey(RealElement)
+	suggestion = models.CharField(max_length=20)
+	times_used = models.IntegerField()
