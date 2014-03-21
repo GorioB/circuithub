@@ -29,6 +29,12 @@ def willItFloat(char):
 		return 1
 	except:
 		return 0
+def willItInt(char):
+	try:
+		int(char)
+		return 1
+	except:
+		return 0
 
 def userOrGuest(user):
 	return user.username if user.is_authenticated() else 'guest'
@@ -120,10 +126,11 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 	contents = circuitList.realelement_set.all()
 
 	for i in contents:
-		if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
-			element = circuitList.realelement_set.filter(pk=i.pk)[0]
-			element.bought_count=int(request.POST[str(i.pk)])
-			element.save()
+		if willItInt(request.POST[str(i.pk)]):
+			if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
+				element = circuitList.realelement_set.filter(pk=i.pk)[0]
+				element.bought_count=int(request.POST[str(i.pk)])
+				element.save()
 		if willItFloat(request.POST[str(i.pk)+"_price"]):
 			if (float(i.price) != float(request.POST[str(i.pk)+"_price"])) and (float(request.POST[str(i.pk)+"_price"])>=0):
 				element = circuitList.realelement_set.filter(pk=i.pk)[0]
