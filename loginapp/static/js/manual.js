@@ -6,6 +6,8 @@ var subtypes = {	"RLC" : ['Resistor', 'Inductor', 'Capacitor'],
 					"Diode" : [],
 				};
 
+var npn = [];
+var pnp = [];
 
 
 var subtype = "";
@@ -17,8 +19,17 @@ $.getJSON('pricelist', function(jd){
 	
 	var i;
 	for(i = 0; i < pricelist.length; i++){
-		if (pricelist[i].fields.main_type == "Diode"){
-			subtypes['Diode'].push(pricelist[i].fields.model);
+		switch (pricelist[i].fields.main_type){
+			case "Diode":
+				subtypes['Diode'].push(pricelist[i].fields.model);
+				break;
+			
+			case "BJT":
+				if(pricelist[i].fields.sub_type == "NPN"){
+					npn.push(pricelist[i].fields.model);
+				} else {
+					pnp.push(pricelist[i].fields.model);
+				}
 		}
 		
 	}
@@ -28,6 +39,7 @@ $.getJSON('pricelist', function(jd){
 	
 	
 });
+
 
 
 
@@ -100,7 +112,10 @@ $(document).on('change', '.c-subtype', function(){
 			element += "<input type='text' placeholder='Value (i.e. 10k, 0.023)' class='input c-val r" + this_row + "' name='c-val-" + this_row + "' id='c-val-" + this_row + "' />";
 			break;
 		case "BJT":
-			element += "<input type='text' placeholder='Model (i.e. 2N3904, etc.)' class='input c-val r" + this_row + "' name='c-val-" + this_row + "' id='c-val-" + this_row + "' />";
+			if(sel == "NPN")
+				element += "<input type='text' placeholder='Model (i.e. 2N3904, etc.)' class='auto-npn input c-val r" + this_row + "' name='c-val-" + this_row + "' id='c-val-" + this_row + "' />";
+			else
+				element += "<input type='text' placeholder='Model (i.e. 2N3904, etc.)' class='auto-pnp input c-val r" + this_row + "' name='c-val-" + this_row + "' id='c-val-" + this_row + "' />";
 			break;
 	}
 	
@@ -112,6 +127,10 @@ $(document).on('change', '.c-subtype', function(){
 
 
 $(document).on('click', '.c-val', function(){
+	$('.auto-npn').autocomplete( {source: npn} )
+	$('.auto-pnp').autocomplete( {source: pnp} )
+
+
 	var sel = $(this).val();
 	var this_id = $(this).attr('id');
 	//console.log('>>>inchange ' + this_id +' to ' + sel);
