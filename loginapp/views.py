@@ -52,6 +52,9 @@ def register_submit(request):
 	email  = request.POST['email']
 	password2 = request.POST['passwordconfirm']
 
+	if (username == "" or email == "" or password == "" or password2 == ""):
+		issues.append("Please fill in all the fields.")
+		
 	if username_exists(username):
 		print "username already taken"
 		issues.append("Username already taken")
