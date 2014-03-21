@@ -29,6 +29,10 @@ def willItFloat(char):
 		return 1
 	except:
 		return 0
+
+def userOrGuest(user):
+	return user.username if user.is_authenticated() else 'guest'
+
 ####views
 def listRawLists(request,owner_id):
 	listowner = request.user.username
@@ -63,7 +67,7 @@ def listRawContents(request,owner_id,list_id):
 	return render(request,'circuits/contentsTemplate.html',context)
 	
 def listCircuitContents(request,owner_id,list_id,circuit_name):
-	listViewer=request.user.username
+	lisViewer = userOrGuest(request.user)
 	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	contents = circuitList.realelement_set.all()
@@ -74,7 +78,7 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 	return render(request,'circuits/checklistTemplate.html',context)
 
 def createChecklist(request,owner_id,list_id):
-	user = request.user.username
+	user = userOrGuest(request.user)
 	circuit_name = request.POST['circuit_name'].replace(' ','_')
 	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	newname=list_id
@@ -120,7 +124,7 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 	return redirect('circuits.views.listCircuitContents',owner_id=owner_id,list_id=list_id,circuit_name=circuit_name)
 
 def deleteRawList(request,owner_id,list_id):
-	user=request.user.username
+	user = userOrGuest(request.user)
 	rawList = RawList.objects.filter(owner=user,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.all()
 	for i in circuitList:
@@ -130,7 +134,7 @@ def deleteRawList(request,owner_id,list_id):
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
 def deleteCheckList(request,owner_id,list_id,circuit_name):
-	user = request.user.username
+	user = userOrGuest(request.user)
 	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	circuitList.delete()

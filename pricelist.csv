@@ -1,7 +1,10 @@
 Type,SubType,Model,UnitPrice,notes
 RLC,R,,0.25,1/4 W
 RLC,I,,2,
-RLC,C,,1,ceramic
+RLC,C,,1,ceramic,
+RLC,Resistor,0.24,1/4 W,
+RLC,Inductor,,2,
+RLC,Capacitor,,1,ceramic,
 Diode,Diode,1n4148,1,
 BJT,NPN,2N3904,2.5,
 BJT,PNP,2N3906,2.5,
