@@ -94,7 +94,8 @@ def createChecklist(request,owner_id,list_id):
 				device_type=i.device_type,
 				device_subtype=i.device_subtype,
 				device_model=i.device_model,
-				device_count=i.device_count)
+				device_count=i.device_count,
+				element_identifier=i.element_identifier)
 
 	if(circuit_name!=''):
 		rawList.generateCircuitList(incIfExisting(user,newname,circuit_name))
