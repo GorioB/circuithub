@@ -3,7 +3,7 @@ var types = ['RLC', 'BJT', 'Diode']
 var row = 0;
 var subtypes = {	"RLC" : ['Resistor', 'Inductor', 'Capacitor'],
 					"BJT" : ['NPN', 'PNP'],
-					"Diode" : ['1n4008', '1n2345'],
+					"Diode" : [],
 				};
 
 
@@ -17,7 +17,9 @@ $.getJSON('pricelist', function(jd){
 	
 	var i;
 	for(i = 0; i < pricelist.length; i++){
-		
+		if (pricelist[i].fields.main_type == "Diode"){
+			subtypes['Diode'].push(pricelist[i].fields.model);
+		}
 		
 	}
 	
