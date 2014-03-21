@@ -8,7 +8,7 @@
 
 	<div id="checklistTemplate" class="listContainer">
 		{% if contents %}
-		<form action='update/' method='post'>{% csrf_token %}
+		<form action='update/' method='post' id='checklistform'>{% csrf_token %}
 			<table class="nicetable">
 				<tr class="tableheader">
 					<td>
@@ -108,17 +108,16 @@
 			}
 		}
 
-		$('.updatechecklist').click(function(){
+		
+		$('#checklistform').submit(function(e){
 			if(doesConnectionExist()==true){
 
 			}else{
 				$("#updateerror").fadeIn(500).delay(3000);
 				$("#updateerror").fadeOut(500);
-				event.preventDefault();
+				e.preventDefault();
 			}
-
-		});
-
+		})
 		$('.switch').click(function(){
 			button_name = $(this).attr('id');
 			input_name = button_name + '_box';
