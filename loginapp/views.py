@@ -57,10 +57,13 @@ def register_submit(request):
 		
 	if username_exists(username):
 		print "username already taken"
-		issues.append("Username already taken")
+		issues.append("Username already taken.")
 
+	if username.count(' '):
+		issues.append('Spaces are not allowed in username field.')
+		
 	if password!=password2:
-		issues.append("Passwords don't match")
+		issues.append("Passwords don't match.")
 
 	if len(issues):
 		print "rendering registerfailure.html"
