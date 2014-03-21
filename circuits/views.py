@@ -79,7 +79,7 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 
 def createChecklist(request,owner_id,list_id):
 	user = userOrGuest(request.user)
-	circuit_name = request.POST['circuit_name'].replace(' ','_')
+	circuit_name = ''.join(e for e in request.POST['circuit_name'] if e.isalnum())
 	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	newname=list_id
 	if rawList.owner!=user:
@@ -94,13 +94,22 @@ def createChecklist(request,owner_id,list_id):
 				device_type=i.device_type,
 				device_subtype=i.device_subtype,
 				device_model=i.device_model,
-				device_count=i.device_count,
-				element_identifier=i.element_identifier)
+				device_count=i.device_count)
 
 	if(circuit_name!=''):
-		rawList.generateCircuitList(incIfExisting(user,newname,circuit_name))
+		circuitListName = incIfExisting(user,newname,circuit_name)
 	else:
-		rawList.generateCircuitList(incIfExisting(user,newname,names.giveName()))
+		circuitListName=incIfExisting(user,newname,names.giveName())
+
+	rawList.generateCircuitList(circuitListName)
+	circuitList = rawList.circuitlist_set.get(name=circuitListName)
+	if 'add_breadboard' in request.POST:
+		circuitList.realelement_set.create(main_value="",device_type="Misc",device_subtype="",device_model="Breadboard",device_count=1,bought_count=0,price="300")
+	if 'add_pcb' in request.POST:
+		circuitList.realelement_set.create(device_type="Misc",device_model="PCB",device_count=1,bought_count=0,price="200")
+	if 'add_wire' in request.POST:
+		circuitList.realelement_set.create(device_type="Misc",device_model="Wire",price="20",device_count=1,bought_count=0)
+
 
 	return redirect('circuits.views.listRawLists',owner_id=user)
 

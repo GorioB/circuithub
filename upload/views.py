@@ -70,7 +70,7 @@ def userUpload(request):
 
 	newRealList.save()
 	for i in b:
-		newRealList.rawelement_set.create(element_identifier=i.type+i.subtype+i.model,main_value=i.value,device_type=i.type,device_subtype=i.subtype,device_model=i.model,device_count=i.amount)
+		newRealList.rawelement_set.create(main_value=i.value,device_type=i.type,device_subtype=i.subtype,device_model=i.model,device_count=i.amount)
 
 	if request.user.is_authenticated():
 		return redirect("/u/"+request.user.username)

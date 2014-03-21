@@ -1,14 +1,14 @@
 from django.db import models
 
 # Create your models here.
-def incrementPriceOrNewEntry(pri,m_type='',s_type='',mod=''):
+def incrementPriceOrNewEntry(pri,m_type=None,s_type=None,mod=None):
 	print pri, m_type, s_type, mod
 	d = PricingEntry.objects.all()
-	if m_type!='':
+	if m_type!=None:
 		d = d.filter(main_type=m_type)
-	if s_type!='':
+	if s_type!=None:
 		d = d.filter(sub_type=s_type)
-	if mod!='':
+	if mod!=None:
 		d = d.filter(model=mod)
 
 	d = d.filter(price=str(pri))
@@ -17,7 +17,7 @@ def incrementPriceOrNewEntry(pri,m_type='',s_type='',mod=''):
 			d[0].times_used=d[0].times_used+1
 			d[0].save()
 	else:
-		d = PricingEntry(main_type=m_type,sub_type=s_type,model=mod,price=pri,times_used=1,element_identifier=m_type+s_type+mod)
+		d = PricingEntry(main_type=m_type,sub_type=s_type,model=mod,price=pri,times_used=1)
 		d.save()
 
 class PricingEntry(models.Model):
@@ -27,4 +27,4 @@ class PricingEntry(models.Model):
 	price=models.CharField(max_length=20)
 	notes=models.CharField(max_length=80)
 	times_used = models.IntegerField()
-	element_identifier=models.CharField(max_length=20)
+

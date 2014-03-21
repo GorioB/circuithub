@@ -32,21 +32,16 @@ class RawList(models.Model):
 				device_model=i.device_model,
 				device_count=i.device_count,
 				bought_count=0,
-				element_identifier=i.element_identifier,
 				price=str(findBestPriceMatch(i)))
 		return c
 
 #CircuitList owner field is for removal but I forgot why
-
-
 class CircuitList(models.Model):
 	owner=models.CharField(max_length=20)
 	name=models.CharField(max_length=20)
 	rawlist = models.ForeignKey(RawList)
 
-
 class RawElement(models.Model):
-	element_identifier=models.CharField(max_length=20)
 	main_value = models.CharField(max_length=20)
 	device_type = models.CharField(max_length=20)
 	device_subtype = models.CharField(max_length=20)
@@ -55,7 +50,6 @@ class RawElement(models.Model):
 	device_count = models.IntegerField()
 
 class RealElement(models.Model):
-	element_identifier=models.CharField(max_length=20)
 	main_value = models.CharField(max_length=20)
 	device_type = models.CharField(max_length=20)
 	device_subtype = models.CharField(max_length=20)
@@ -65,29 +59,5 @@ class RealElement(models.Model):
 	bought_count = models.IntegerField()
 	price = models.CharField(max_length=20)
 
-	def removeDupe(self,elements):
-		retList=[]
-		for i in elements:
-			if i.element_identifier not in [x.element_identifier for x in retList]:
-				retList.append(i)
-
-		return retList
-
-	def initSuggestions(self):
-		pool = PricingEntry.objects.filter(sub_type=self.device_subtype)
-		if pool==[]:
-			pool = PricingEntry.objects.filter(main_type=self.device_type)
-
-		self.removeDupe(pool)
-
-		for i in pool:
-			self.suggestible_set.create(suggestion=i.element_identifier,times_used=i.times_used)
-
-	
 	def __unicode__(self):
 		return self.device_type+" "+self.main_value
-
-class Suggestible(models.Model):
-	element = models.ForeignKey(RealElement)
-	suggestion = models.CharField(max_length=20)
-	times_used = models.IntegerField()
