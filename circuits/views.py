@@ -54,7 +54,7 @@ def goToHome(request):
 		return redirect("/u/guest")
 		
 def printFriendly(request,owner_id,list_id,circuit_name):
-	listowner = request.user.username
+	listowner = userOrGuest(request.user)
 	rawList = RawList.objects.filter(owner=listowner,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
 	contents = circuitList.realelement_set.order_by('device_model')
@@ -92,9 +92,9 @@ def createChecklist(request,owner_id,list_id):
 		oldRawListContents = rawList.rawelement_set.all()
 		rawList.pk=None
 		rawList.owner=user
-		rawList.save()
 		newname = incIfExisting(user,list_id)
 		rawList.name=newname
+		rawList.save()
 		for i in oldRawListContents:
 			rawList.rawelement_set.create(main_value=i.main_value,
 				device_type=i.device_type,
