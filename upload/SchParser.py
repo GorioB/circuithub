@@ -133,7 +133,10 @@ def schParts(filename):
 		#note, you won't append all the time because some "parts" aren't real (e.g. GND)
 		if (plist[i]["library"] == "rcl" or plist[i]["library"] == "resistor"): #rcl parser
 			name = plist[i]["name"]
-			value = plist[i]["value"]
+			if plist[i].has_attr('value'):
+				value = plist[i]["value"]
+			else:
+				value=''
 			kind = "RLC"
 			subtype = plist[i]["deviceset"][0]
 			model = ""

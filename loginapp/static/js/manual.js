@@ -63,9 +63,7 @@ $(function(){
 	
 });
 
-$(document).ready( function(){
-	$('#manual-notif').hide();
-});
+
 
 $(document).on('change', '.c-type', function(){
 	var sel = $(this).val();

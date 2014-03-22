@@ -8,7 +8,7 @@
 
 	<div id="checklistTemplate" class="listContainer">
 		{% if contents %}
-		<form action='update/' method='post'>{% csrf_token %}
+		<form action='update/' method='post' id='checklistform'>{% csrf_token %}
 			<table class="nicetable">
 				<tr class="tableheader">
 					<td>
@@ -59,7 +59,12 @@
 				</tr>
 			</table>
 				<div id="updatebox">
-					<input type="submit" value="&#xf021;" class="osambutton functions updatechecklist"><span style="font-weight: 300; font-size: 12px; line-height: 0px; z-index: 5;"><br>Update Checklist</span>
+					<div class="notif-error" id="updateerror">
+					No internet :(<br>Try again later.
+					</div>
+					<span id="theupdatebutton">
+						<input type="submit" value="&#xf021;" class="osambutton functions updatechecklist"><span style="font-weight: 300; font-size: 12px; line-height: 0px; z-index: 5;"><br>Update Checklist</span>
+					</span>
 					</form>
 				</div>
 				<div id="printbox">
@@ -103,8 +108,16 @@
 			}
 		}
 
+		
+		$('#checklistform').submit(function(e){
+			if(doesConnectionExist()==true){
 
-
+			}else{
+				$("#updateerror").fadeIn(500).delay(3000);
+				$("#updateerror").fadeOut(500);
+				e.preventDefault();
+			}
+		})
 		$('.switch').click(function(){
 			button_name = $(this).attr('id');
 			input_name = button_name + '_box';
@@ -134,6 +147,26 @@
 
 		});
 
+
+		function doesConnectionExist() {
+		    var xhr = new XMLHttpRequest();
+		    var file = "/static/img/circuithublogo_light.png";
+		    var randomNum = Math.round(Math.random() * 10000);
+		     
+		    xhr.open('HEAD', "http://" + window.location.host + file + "?rand=" + randomNum, false);
+		     
+		    try {
+		        xhr.send();
+		         
+		        if (xhr.status >= 200 && xhr.status < 304) {
+		            return true;
+		        } else {
+		            return false;
+		        }
+		    } catch (e) {
+		        return false;
+		    }
+		}	
 
 
 	</script>	

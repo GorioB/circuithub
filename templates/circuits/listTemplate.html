@@ -18,6 +18,10 @@
 				</form>
 
 				<form action='{{ rawlist.name }}/checkout/' method = 'post'>{% csrf_token %}
+					<input type='checkbox' name='add_breadboard'>Add breadboard &nbsp;
+					<input type='checkbox' name='add_pcb'>Add PCB &nbsp;
+					<input type='checkbox' name='add_wire'>Add Wire &nbsp;
+					<br>
 					<input type='text' name='circuit_name'>
 					<input type='submit' value='Create Checklist'>
 				</form>

@@ -29,6 +29,12 @@ def willItFloat(char):
 		return 1
 	except:
 		return 0
+def willItInt(char):
+	try:
+		int(char)
+		return 1
+	except:
+		return 0
 
 def userOrGuest(user):
 	return user.username if user.is_authenticated() else 'guest'
@@ -51,7 +57,7 @@ def printFriendly(request,owner_id,list_id,circuit_name):
 	listowner = request.user.username
 	rawList = RawList.objects.filter(owner=listowner,name=list_id)[0]
 	circuitList = rawList.circuitlist_set.filter(name=circuit_name)[0]
-	contents = circuitList.realelement_set.all()
+	contents = circuitList.realelement_set.order_by('device_model')
 	totalCost=0
 	for i in contents:
 		totalCost+=float(i.price)*i.device_count
@@ -79,7 +85,7 @@ def listCircuitContents(request,owner_id,list_id,circuit_name):
 
 def createChecklist(request,owner_id,list_id):
 	user = userOrGuest(request.user)
-	circuit_name = request.POST['circuit_name'].replace(' ','_')
+	circuit_name = ''.join(e for e in request.POST['circuit_name'] if e.isalnum())
 	rawList = RawList.objects.filter(owner=owner_id,name=list_id)[0]
 	newname=list_id
 	if rawList.owner!=user:
@@ -97,9 +103,19 @@ def createChecklist(request,owner_id,list_id):
 				device_count=i.device_count)
 
 	if(circuit_name!=''):
-		rawList.generateCircuitList(incIfExisting(user,newname,circuit_name))
+		circuitListName = incIfExisting(user,newname,circuit_name)
 	else:
-		rawList.generateCircuitList(incIfExisting(user,newname,names.giveName()))
+		circuitListName=incIfExisting(user,newname,names.giveName())
+
+	rawList.generateCircuitList(circuitListName)
+	circuitList = rawList.circuitlist_set.get(name=circuitListName)
+	if 'add_breadboard' in request.POST:
+		circuitList.realelement_set.create(main_value="",device_type="Misc",device_subtype="",device_model="Breadboard",device_count=1,bought_count=0,price="300")
+	if 'add_pcb' in request.POST:
+		circuitList.realelement_set.create(device_type="Misc",device_model="PCB",device_count=1,bought_count=0,price="200")
+	if 'add_wire' in request.POST:
+		circuitList.realelement_set.create(device_type="Misc",device_model="Wire",price="20",device_count=1,bought_count=0)
+
 
 	return redirect('circuits.views.listRawLists',owner_id=user)
 
@@ -110,10 +126,11 @@ def updateChecklist(request,owner_id,list_id,circuit_name):
 	contents = circuitList.realelement_set.all()
 
 	for i in contents:
-		if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
-			element = circuitList.realelement_set.filter(pk=i.pk)[0]
-			element.bought_count=int(request.POST[str(i.pk)])
-			element.save()
+		if willItInt(request.POST[str(i.pk)]):
+			if (i.bought_count != int(request.POST[str(i.pk)])) and (int(request.POST[str(i.pk)])>=0):
+				element = circuitList.realelement_set.filter(pk=i.pk)[0]
+				element.bought_count=int(request.POST[str(i.pk)])
+				element.save()
 		if willItFloat(request.POST[str(i.pk)+"_price"]):
 			if (float(i.price) != float(request.POST[str(i.pk)+"_price"])) and (float(request.POST[str(i.pk)+"_price"])>=0):
 				element = circuitList.realelement_set.filter(pk=i.pk)[0]

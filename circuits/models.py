@@ -20,7 +20,7 @@ class RawList(models.Model):
 	author=models.CharField(max_length=20)
 
 	def __unicode__(self):
-		return self.owner+" "+self.name
+		return self.owner+" - "+self.name
 
 	def generateCircuitList(self,name):
 		c = self.circuitlist_set.create(owner=self.owner,name=name)
@@ -40,6 +40,9 @@ class CircuitList(models.Model):
 	owner=models.CharField(max_length=20)
 	name=models.CharField(max_length=20)
 	rawlist = models.ForeignKey(RawList)
+
+	#def __unicode__(self):
+	#	return self.owner+" - "+str(self.rawlist)+" - "+self.name
 
 class RawElement(models.Model):
 	main_value = models.CharField(max_length=20)
