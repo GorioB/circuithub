@@ -13,6 +13,7 @@ var pnp = [];
 var subtype = "";
 var pricelist;
 
+	
 $.getJSON('pricelist', function(jd){
 	console.log('here');
 	pricelist = JSON.parse(jd);
@@ -61,6 +62,12 @@ $(function(){
 	});
 	
 });
+
+
+$(document).ready( function(){
+	$('#manual-notif').hide();
+});
+
 
 
 $(document).on('change', '.c-type', function(){
@@ -145,12 +152,12 @@ $(document).on('click', '.c-val', function(){
 $(document).on('click', '#submitBtn', function(){
 	if (fieldsValid() == false) {
 		event.preventDefault();
-		$('.notif-error').show();
+		$('#manual-notif').show();
 	}
 });
 
 $(document).on('change', '.input', function(){
-	$('.notif-error').fadeOut();
+	$('#manual-notif').fadeOut();
 });
 
 function removeRight(c_id){ //on select change, remove the elements to the right
