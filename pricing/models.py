@@ -28,3 +28,5 @@ class PricingEntry(models.Model):
 	notes=models.CharField(max_length=80)
 	times_used = models.IntegerField()
 
+	def __unicode__(self):
+		return self.model+" - "+self.price

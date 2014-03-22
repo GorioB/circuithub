@@ -62,8 +62,10 @@ def userUpload(request):
 	if f.name.split('.')[1]!="sch" and f.name.split('.')[1]!="cir":
 		return redirect('upload.views.upload')
 
+	fname = f.name.split('.')[0]
+	fname = ''.join(e for e in fname if e.isalnum())
 	if request.user.is_authenticated():
-		newRealList=RawList(owner=request.user.username,name=incIfExisting(request.user.username,f.name.split('.')[0]),author=request.user.username)
+		newRealList=RawList(owner=request.user.username,name=incIfExisting(request.user.username,fname),author=request.user.username)
 	else:
 		newname = giveName()
 		newRealList=RawList(owner="guest",name=newname,author='guest')
